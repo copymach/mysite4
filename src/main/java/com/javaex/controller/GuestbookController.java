@@ -57,6 +57,7 @@ public class GuestbookController {
 		guestbookDao.contentDelete(guestbookVo);
 		
 		return "redirect:/guestbook/addList";
-	}
+	} // delete
+	
 	
 } // The end of GuestbookController
