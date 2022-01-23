@@ -17,9 +17,9 @@ public class GuestbookDao {
 	public List<GuestbookVo> getGuestbookList() {
 		System.out.println("GuestbookDao.getList 실행");
 		
-		List<GuestbookVo> GuestbookList = sqlSession.selectList("guestbook.selectList");
+		List<GuestbookVo> guestbookList = sqlSession.selectList("guestbook.selectList");
 		
-		return GuestbookList;
+		return guestbookList;
 	} // getGuestbookList 
 
 	

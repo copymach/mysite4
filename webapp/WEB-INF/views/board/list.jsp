@@ -65,48 +65,24 @@
 									<th>관리</th>
 								</tr>
 							</thead>
+
+							<c:forEach items="${requestScope.boardList}" var="boardList">
+							
 							<tbody>
+							
 								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
+									<td>${boardList.bno}</td>
+									<td class="text-left"><a href="/mysite4/board/read?bno=${boardList.bno }">${boardList.title }</a></td>
+									<td>${boardList.id } (${boardList.uno}:${boardList.user_name })</td>
+									<td>${boardList.hit }</td>
+									<td>${boardList.reg_date }</td>
+									<td><a href="/mysite4/board/delete?bno=${boardList.bno }">[삭제]</a></td>
 								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr>
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
-								<tr class="last">
-									<td>123</td>
-									<td class="text-left"><a href="#">게시판 게시글입니다.</a></td>
-									<td>정우성</td>
-									<td>1232</td>
-									<td>2020-12-23</td>
-									<td><a href="">[삭제]</a></td>
-								</tr>
+							
 							</tbody>
+							
+							</c:forEach>
+							
 						</table>
 			
 						<div id="paging">
