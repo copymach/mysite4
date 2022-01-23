@@ -36,7 +36,8 @@ public class GuestbookController {
 	@RequestMapping(value="/guestbook/write", method= {RequestMethod.POST, RequestMethod.GET})
 	public String wrtie(@ModelAttribute GuestbookVo guestbookVo) {
 		System.out.println("guestbook.write 실행");
-		
+//		모델 어트리뷰트-parameter를 받아서 자동으로 vo에 넣어준다
+	
 		guestbookDao.contentInsert(guestbookVo);
 		
 		return "redirect:/guestbook/addList";
