@@ -13,10 +13,10 @@ public class UserDao {
 	private SqlSession sqlSession;
 	
 	// user 정보 가져오기
-	public UserVo getUser(UserVo userVo) {
+	public UserVo selectUser(UserVo userVo) {
 		System.out.println("UserDao.getUser 실행"+userVo);
 		
-		UserVo authUser = sqlSession.selectOne("user.getUser", userVo);
+		UserVo authUser = sqlSession.selectOne("user.selectUser", userVo);
 		return authUser;
 	}
 	

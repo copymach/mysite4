@@ -5,7 +5,7 @@
 
 <div id="header" class="clearfix">
 	<h1>
-		<a href="http://localhost:8088/mysite4/">MySite</a>
+		<a href="http://localhost:8088/mysite4/">MySite4</a>
 	</h1>
 	
 	<!-- choose 사이에 주석 달면 에러 주의. -->
@@ -26,7 +26,7 @@
 				<li>${sessionScope.authUser.name} 님 로그인했습니다 </li> 
 				<!-- sessionScope.authUser.name 에서 sessionScope 생략가능 -->
 				<li><a href="/mysite4/user/logout" class="btn_s">로그아웃</a></li>
-				<li><a href="/mysite4/user/modifyForm&no=${authUser.no}" class="btn_s">회원정보수정</a></li>
+				<li><a href="/mysite4/user/modifyForm?no=${authUser.no}" class="btn_s">회원정보수정</a></li>
 			</ul>
 		</c:otherwise>
 	</c:choose>
