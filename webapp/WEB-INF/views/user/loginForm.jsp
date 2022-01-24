@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Mysite4 loginForm</title>
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/user.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -47,7 +47,7 @@
 	
 				<div id="user">
 					<div id="loginForm">
-						<form action="/mysite4/user/login" method="get">
+						<form action="${pageContext.request.contextPath}/user/login" method="get">
 	
 							<!-- 아이디 autofocus 자동커서 이동 -->
 							<div class="form-group">

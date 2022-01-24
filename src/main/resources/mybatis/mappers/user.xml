@@ -13,4 +13,17 @@
 		and password = #{password}		
 		]]>
 	</select>
+	
+	<insert id="insertUser" parameterType="com.javaex.vo.UserVo">
+	<![CDATA[
+		INSERT INTO users VALUES (
+			seq_users_no.nextval
+			, #{id}
+			, #{password}
+			, #{name}
+			, #{gender}
+			)
+	]]>
+	</insert>
+	
 </mapper>

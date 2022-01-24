@@ -6,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>writeForm</title>
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/board.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -52,7 +52,7 @@
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label>
-								<input type="text" id="txt-title" name="" value="" placeholder="제목을 입력해 주세요">
+								<input type="text" id="txt-title" name="" value="" placeholder="제목을 입력해 주세요" autofocus>
 							</div>
 						
 							<!-- 내용 -->

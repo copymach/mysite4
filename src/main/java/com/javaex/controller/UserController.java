@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.javaex.dao.UserDao;
+import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
 
 @Controller
 public class UserController {
+
+//스프링은 컨트롤러 - 서비스 - 다오 구성
+//컨트롤러는 서비스만 사용할것 다오 직접사용x
 	
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 	
 //	로그인폼
 	@RequestMapping(value="/user/loginForm", method= {RequestMethod.POST, RequestMethod.GET})
@@ -25,15 +28,13 @@ public class UserController {
 		return "/user/loginForm";
 	} // loginForm 
 	
-//	http://localhost:8088/mysite4/user/login?id=dd&pw=dd
 //	로그인
 	@RequestMapping(value="/user/login", method= {RequestMethod.POST, RequestMethod.GET})
 	public String login(@ModelAttribute UserVo userVo, HttpSession session) {
 		System.out.println("UserController.login 로그인 ");
 		
-		userDao.selectUser(userVo);
-		
-		UserVo authUser = userDao.selectUser(userVo);
+		UserVo authUser = userService.login(userVo); 
+//		.selectUser(userVo);
 		System.out.println(authUser);
 		
 		if (authUser != null) {
@@ -47,8 +48,7 @@ public class UserController {
 			System.out.println("로그인 실패");
 			return "redirect:/user/loginForm?result=fail";
 		}
-		
-	} // loginForm
+	} // login
 	
 	
 //	로그아웃 세션값 삭제
@@ -65,6 +65,35 @@ public class UserController {
 		
 		return "redirect:/";
 	} // logout
+	
+	
+	@RequestMapping(value="/user/joinForm" , method= {RequestMethod.GET, RequestMethod.POST})
+	public String joinForm() {
+		System.out.println("user.joinForm 실행");
+		return "/user/joinForm";
+	} // joinForm
+	
+//	동일한 id (유니크아이디) 입력하면 에러난다 처리해보자
+	@RequestMapping(value="/user/join" , method= {RequestMethod.GET, RequestMethod.POST})
+	public String join(@ModelAttribute UserVo userVo) {
+		System.out.println("user.join 실행");
+		
+		userService.join(userVo); 
+		
+		System.out.println("UserController.joinUser 출력 ");
+		return "/user/joinOk";
+	} // joinOk	
+	
+
+	@RequestMapping(value="/user/joinOk" , method= {RequestMethod.GET, RequestMethod.POST})
+	public String joinOk() {
+		System.out.println("user.joinOk 실행");
+		
+		return "/user/joinOk";
+	} // joinOk
+	
+	
+	
 	
 	
 } // The end of UserController

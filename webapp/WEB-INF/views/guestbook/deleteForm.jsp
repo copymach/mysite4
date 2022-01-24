@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>deleteForm</title>
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -59,7 +59,7 @@
 								<td>${param.no}번 비밀번호 <input type="hidden" name=no value="${param.no}"></td>
 								<td><input type="password" name="password"></td>
 								<td class="text-left"><button type="submit">삭제</button></td>
-								<td><a href="/mysite4/guestbook/addList">[목록으로 돌아가기]</a></td>
+								<td><a href="${pageContext.request.contextPath}/guestbook/addList">[목록으로 돌아가기]</a></td>
 							</tr>
 						</table>
 						<!-- <input type='hidden' name="" value="">

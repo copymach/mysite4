@@ -20,4 +20,12 @@ public class UserDao {
 		return authUser;
 	}
 	
+	public void insertUser(UserVo userVo) {
+		System.out.println("UserDao.insertUser 실행"+userVo);
+		
+		sqlSession.insert("user.insertUser", userVo);
+	}
+	
+	
+	
 }

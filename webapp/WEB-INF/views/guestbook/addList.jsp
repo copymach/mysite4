@@ -7,8 +7,8 @@
 <head>
 <meta charset="UTF-8">
 <title>addList</title>
-<link href="/mysite4/assets/css/mysite.css" rel="stylesheet" type="text/css">
-<link href="/mysite4/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
 </head>
 
@@ -46,7 +46,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="/mysite4/guestbook/write" method="get">
+					<form action="${pageContext.request.contextPath}/guestbook/write" method="get">
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -57,7 +57,7 @@
 							<tbody>
 								<tr>
 									<th><label class="form-text" for="input-uname">이름</label></td>
-									<td><input id="input-uname" type="text" name="name"></td>
+									<td><input id="input-uname" type="text" name="name" autofocus></td>
 									<th><label class="form-text" for="input-pass">패스워드</label></td>
 									<td><input id="input-pass"type="password" name="password"></td>
 								</tr>
@@ -89,7 +89,7 @@
 							<td>No:${guestbookList.no }</td>
 							<td>Name:${guestbookList.name }</td>
 							<td>time:${guestbookList.regDate }</td>
-							<td><a href="/mysite4/guestbook/deleteForm?no=${guestbookList.no }">[삭제]</a></td>
+							<td><a href="${pageContext.request.contextPath}/guestbook/deleteForm?no=${guestbookList.no }">[삭제]</a></td>
 						</tr>
 						<tr>
 							<td colspan=4 class="text-left">${guestbookList.content }</td>
