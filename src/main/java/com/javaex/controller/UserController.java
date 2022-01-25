@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -93,7 +94,30 @@ public class UserController {
 	} // joinOk
 	
 	
+	@RequestMapping(value="/user/modifyForm" , method= {RequestMethod.GET, RequestMethod.POST})
+	public String modifyForm() {
+		System.out.println("user.modifyForm 실행");
+		
+		return "/user/modifyForm";
+	} // modifyForm
 	
+	
+	@RequestMapping(value="/user/modify", method= {RequestMethod.GET, RequestMethod.POST})
+	public String modify(@ModelAttribute UserVo userVo, Model model) {
+		System.out.println("user.modify 실행");
+		
+		userService.modify(userVo);
+		
+//		1명의 정보 서비스를 부르고
+		UserVo authUser = userService.getUser(userVo);
+		
+//		세션에 변경한 값을 넣기
+		model.addAttribute("authUser", authUser); 
+		
+		System.out.println("UC.authUser 출력 "+authUser);
+		
+		return "redirect:/";
+	} // modifyForm	
 	
 	
 } // The end of UserController

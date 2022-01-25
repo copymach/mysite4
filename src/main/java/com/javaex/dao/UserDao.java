@@ -26,6 +26,12 @@ public class UserDao {
 		sqlSession.insert("user.insertUser", userVo);
 	}
 	
+	public void updateUser(UserVo userVo) {
+		System.out.println("UserDao.updateUser 실행"+userVo);
+		
+		sqlSession.update("user.updateUser", userVo);
+	}
+	
 	
 	
 }

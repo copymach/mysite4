@@ -23,7 +23,7 @@
 			<!-- 로그인 성공시 출력 -->
 			<ul>
 				<!-- 세션에서 갱신한 이름을 가져와보자 -->
-				<li>${sessionScope.authUser.name}님 로그인했습니다</li>
+				<li>${sessionScope.authUser.name}님 로그인했습니다 (ID:${sessionScope.authUser.id})</li>
 				<!-- sessionScope.authUser.name 에서 sessionScope 생략가능 -->
 				<li><a href="${pageContext.request.contextPath}/user/logout" class="btn_s">로그아웃</a></li>
 				<li><a href="${pageContext.request.contextPath}/user/modifyForm?no=${authUser.no}" class="btn_s">회원정보수정</a></li>

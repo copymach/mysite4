@@ -14,10 +14,41 @@
 		        ,user_no uno
 		        ,ur.id id
 		        ,ur.password password
-		        ,ur.name name        
+		        ,ur.name user_name        
 		from board bd, users ur
 		where bd.user_no = ur.no
 		order by regDate desc
 		]]>	
 	</select>
+	
+	<select id="selectOne" parameterType="BoardVo" resultType="BoardVo">
+		<![CDATA[
+		select  bd.no bno
+		        ,title
+		        ,content
+		        ,hit
+		        ,to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') reg_date 
+		        ,user_no uno
+		        ,ur.id id
+		        ,ur.password password
+		        ,ur.name user_name         
+		from board bd, users ur
+		where bd.user_no = ur.no
+		and bd.no = #{bno}
+		]]>
+	</select>
+	
+	
+<!-- hit 티베로 조회수 증가 
+필드가 varchar 타입인 경우 TO_NUMBER로 캐스팅 하고
+혹시 NOT NULL 허용일지도 모름으로 NVL로 NULL값을 0으로 치환 -->
+	<update id="updateHit" parameterType="BoardVo">
+		<![CDATA[
+		UPDATE board 
+		set HIT = NVL(HIT, 0) + 1
+		WHERE board.no = #{bno}
+		]]>	
+	</update>
+	
+	
 </mapper>

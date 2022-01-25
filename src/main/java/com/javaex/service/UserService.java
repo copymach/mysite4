@@ -26,6 +26,15 @@ public class UserService {
 		userDao.insertUser(userVo);
 	} // join
 	
+	public void modify (UserVo userVo) {
+		System.out.println("service.join 실행"+userVo);
+		
+		userDao.updateUser(userVo);
+	} // join
 	
+	public UserVo getUser(UserVo userVo) {
+		System.out.println("service.getUser 실행"+userVo);
+		return userDao.selectUser(userVo);
+	} //getUser
 	
 } // The end of UserService

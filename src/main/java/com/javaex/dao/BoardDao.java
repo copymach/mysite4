@@ -23,6 +23,15 @@ public class BoardDao {
 		return boardList;
 	} // getBoardList
 	
+	public BoardVo read (int bno) {
+		System.out.println("BoardDao.read 실행");
+		return sqlSession.selectOne("board.selectOne", bno);
+	} // read
+	
+	public void hit (int bno) {
+		System.out.println("BoardDao.hit 실행");
+		sqlSession.update("board.updateHit", bno);
+	} // hit
 	
 	
 	
