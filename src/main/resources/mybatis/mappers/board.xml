@@ -49,6 +49,31 @@
 		WHERE board.no = #{bno}
 		]]>	
 	</update>
+
+	
+	<update id="updateContent" parameterType="BoardVo">
+		<![CDATA[
+		UPDATE board 
+		set     title = #{title},
+		        content = #{content}
+		WHERE board.no = #{bno}
+		]]>
+	</update>
+	
+	
+	<!-- 게시판 정보 입력해보기 식별번호(no시퀀스), 제목, 내용, 조회수, 등록일, 작성자번호(user_no) -->
+	<insert id="insertContent" parameterType="BoardVo">
+		<![CDATA[
+		INSERT INTO board VALUES (
+			seq_board_no.nextval
+			, #{title}
+			, #{content} 
+			, 0 
+			, sysdate
+			, #{uno}
+			)
+		]]>
+	</insert>
 	
 	
 </mapper>

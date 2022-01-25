@@ -25,12 +25,23 @@ public class BoardService {
 		System.out.println("BoardService.read 실행");
 		
 		return boardDao.read(bno);
-	}
+	} // read
 	
 	public void hit (int bno) {
 		System.out.println("BoardService.read 실행");
 		boardDao.hit(bno);
-	}
+	} // hit
+	
+	public void modify (BoardVo boardVo) {
+		System.out.println("BoardService.modify 실행");
+		boardDao.modify(boardVo);
+	} // modify
+	
+	public void write (BoardVo boardVo) {
+		System.out.println("BoardService.modify 실행");
+		boardDao.write(boardVo);
+	} // write
+	
 	
 	
 } // The end of BoardService 

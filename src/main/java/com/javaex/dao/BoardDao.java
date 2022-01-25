@@ -33,6 +33,18 @@ public class BoardDao {
 		sqlSession.update("board.updateHit", bno);
 	} // hit
 	
+	public void modify (BoardVo boardVo) {
+		System.out.println("BoardDao.modify 실행");
+		sqlSession.update("board.updateContent", boardVo);
+	} // modify
+	
+	public void write (BoardVo boardVo) {
+		System.out.println("BoardDao.modify 실행");
+		sqlSession.insert("board.insertContent", boardVo);
+	} // write
+	
+	
+	
 	
 	
 } // The end of BoardDao
