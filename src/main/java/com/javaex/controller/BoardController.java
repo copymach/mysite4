@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.BoardService;
 import com.javaex.vo.BoardVo;
+import com.javaex.vo.UserVo;
 
 @Controller // repository를 쓰면 안된다
 public class BoardController {
@@ -28,7 +29,7 @@ public class BoardController {
 		
 //		DS에서 리스트 데이터 공유하는 model
 		model.addAttribute("boardList",boardList);
-		
+		System.out.println("BC boardList  출력 "+boardList);
 		return "/board/list";
 	} // list
 	
@@ -79,7 +80,12 @@ public class BoardController {
 	
 	@RequestMapping(value="/board/write", method= {RequestMethod.GET, RequestMethod.POST})
 	public String write(@ModelAttribute BoardVo boardVo) {
-		System.out.println("board.writeForm 실행");
+		System.out.println("board.write 실행");
+		
+//		1명의 정보 서비스를 부르고
+//		UserVo authUser = boardService.getUser(userVo);
+//		세션에 변경한 값을 넣기
+//		model.addAttribute("authUser", authUser); 
 		
 		boardService.write(boardVo);
 		System.out.println("BC.boardVo 확인 "+boardVo);
@@ -90,6 +96,9 @@ public class BoardController {
 	@RequestMapping(value="/board/delete", method= {RequestMethod.GET, RequestMethod.POST})
 	public String delete(@ModelAttribute BoardVo boardVo) {
 		System.out.println("board.delete 실행");
+		
+//		유저번호uno 글번호bno 가 일치해야 삭제가능-불일치 삭제안하고 리스트로 복귀
+		boardService.delete(boardVo);
 		
 		return "redirect:/board/list";
 	} // delete	

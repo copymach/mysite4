@@ -59,7 +59,7 @@
 								<tr>
 									<th>번호</th>
 									<th>제목</th>
-									<th>글쓴이</th>
+									<th>글쓴이id (uno:userName)</th>
 									<th>조회수</th>
 									<th>작성일</th>
 									<th>관리</th>
@@ -75,8 +75,13 @@
 									<td class="text-left"><a href="/mysite4/board/read?bno=${boardList.bno }">${boardList.title }</a></td>
 									<td>${boardList.id } (${boardList.uno}:${boardList.user_name })</td>
 									<td>${boardList.hit }</td>
-									<td>${boardList.reg_date }</td>
-									<td><a href="/mysite4/board/delete?bno=${boardList.bno }">[삭제]</a></td>
+									<td>${boardList.reg_date}</td>
+									
+									<!-- 로그인한 사람의 no와 글쓴이의 uno가 일치하면 삭제버튼 출력 -->
+									<c:if test="${authUser.no == boardList.uno}">
+										<td><a href="${pageContext.request.contextPath}/board/delete?bno=${boardList.bno}&uno=${authUser.no}">[삭제]</a></td>
+									</c:if>
+
 								</tr>
 							
 							</tbody>
@@ -104,8 +109,14 @@
 							
 							<div class="clear"></div>
 						</div>
-						<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm">글쓰기</a>
-					
+						<c:choose>
+							<c:when test="${empty sessionScope.authUser}">
+								<td>글쓰기 하려면 로그인하세요</td>
+							</c:when>
+							<c:otherwise>
+								<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm">글쓰기</a>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- //list -->
 				</div>

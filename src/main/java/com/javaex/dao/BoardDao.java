@@ -43,6 +43,10 @@ public class BoardDao {
 		sqlSession.insert("board.insertContent", boardVo);
 	} // write
 	
+	public void delete (BoardVo boardVo) {
+		System.out.println("BoardDao.delete 실행");
+		sqlSession.delete("board.deleteContent", boardVo);
+	} // delete
 	
 	
 	
