@@ -52,11 +52,15 @@ nocache
 SELECT * FROM USER_SEQUENCES;
             
 --게시판 정보 입력해보기 식별번호(no시퀀스), 제목, 내용, 조회수, 등록일, 그룹번호, 그룹순서, 깊이, 유저번호
+--새글의 경우 group_no 는 글번호와 동일, order_no는 1, depth는 0
 INSERT INTO rboard 
-VALUES (seq_rboard_no.nextval, '와봤습니다', '구경왔습니다' , 13 , sysdate, seq_rboard_group_no.nextval, 0, 0, 5);
+VALUES (seq_rboard_no.nextval, '와봤습니다', '구경왔습니다' , 13 , sysdate, seq_rboard_group_no.nextval, 1, 0, 5);
 
 INSERT INTO rboard 
-VALUES (seq_rboard_no.nextval, '맛과 가격을 잡은 가성비 귤', '타이벡 감귤 사면 됨' , 9 , sysdate, seq_rboard_group_no.nextval, 0, 0, 6);
+VALUES (seq_rboard_no.nextval, '맛과 가격을 잡은 가성비 귤', '타이벡 감귤 사면 됨' , 9 , sysdate, seq_rboard_group_no.nextval, 1, 0, 6);
+
+INSERT INTO rboard 
+VALUES (seq_rboard_no.nextval, '민초파 여기 모여라', '주말에 베라 ㄱㄱ' , 0 , sysdate, seq_rboard_group_no.nextval, 1, 0, 6);
 
 
 
