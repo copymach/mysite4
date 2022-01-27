@@ -29,7 +29,7 @@ public class BoardController {
 		
 //		DS에서 리스트 데이터 공유하는 model
 		model.addAttribute("boardList",boardList);
-		System.out.println("BC boardList  출력 "+boardList);
+		
 		return "/board/list";
 	} // list
 	
