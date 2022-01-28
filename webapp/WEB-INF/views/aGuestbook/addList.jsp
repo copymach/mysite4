@@ -49,7 +49,7 @@
 				<!-- //content-head -->
 
 				<div id="guestbook">
-					<form action="${pageContext.request.contextPath}/guestbook/write" method="get">
+					<%-- <form action="${pageContext.request.contextPath}/guestbook/write" method="get"> --%>
 						<table id="guestAdd">
 							<colgroup>
 								<col style="width: 70px;">
@@ -68,18 +68,20 @@
 									<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
 								</tr>
 								<tr class="button-area">
-									<td colspan="4" class="text-center"><button type="submit">등록</button></td>
+									<td colspan="4" class="text-center"><button id="btnSubmit" type="submit">등록</button></td>
 								</tr>
 							</tbody>
 							
 						</table>
 						<!-- //guestWrite -->
 						<!-- <input type="hidden" name="action" value="add"> -->
-						
-					</form>	
+					<!-- </form> -->	
+					
+					<div id="listArea">
+						<!-- 리스트 출력할 곳 -->
+					</div>
 					
 					<%-- <c:forEach items="${requestScope.guestbookList}" var="guestbookList">
-					
 					<table class="guestRead">
 						<colgroup>
 							<col style="width: 10%;">
@@ -124,27 +126,114 @@
 //로딩 전에 요청하기
 $(document).ready(function(){
 	console.log("리스트 요청");
-	
-	$.ajax({
-	      //요청항목
-	      url : "${pageContext.request.contextPath}/api/guestbook/list",      
-	      type : "post", // get으로 해도 안보이니까 post 방식
-	      //contentType : "application/json",
-	      //data : {name: "홍길동"},
-		
-	      //응답항목
-	      // dataType : "json",
-	      success : function(guestbookList){
-	         /*성공시 처리해야될 코드 작성*/
-	         console.log(guestbookList);
-	      },
-	      error : function(XHR, status, error) {
-	         console.error(status + " : " + error);
-	      }
-	   }); // ajax
+	fetchList();
 	
 }); // document . ready
 
+
+$("#btnSubmit").on("click", function(){
+	console.log("저장버튼 클릭 액션");
+	
+	//폼에 데이터를 모은다
+	var name = $("#input-uname").val(); // 이름
+	var password = $("#input-pass").val(); // 비번
+	var content = $("[name='content']").val(); //컨텐츠
+	
+	//객체만들기
+	var guestbookVo = { 
+			name: name,
+			password: password,
+			content: content
+	}; // var guestbookVo
+	
+	console.log(guestbookVo); //콘솔에 입력한 정보 제대로 뜨는지 확인
+	
+	//요청하기
+	
+		// 요청하기
+	$(document).ready(function(){
+		console.log("리스트 요청");
+		
+		$.ajax({
+		      
+		      // 복잡한 방식 url : "${pageContext.request.contextPath}/api/guestbook/write?name="+name+"&password="+password+"",      
+		      url : "${pageContext.request.contextPath}/api/guestbook/write",
+			  type : "post",
+		      //contentType : "application/json",
+		      data : guestbookVo, // 위에서 만든 객체를 그대로 이어 쓴다
+		      //data : {name:name, password:password, content:content]}, // 위 코드와 같은 기능
+		      	
+		      //dataType : "json",
+		      success : function(result){
+		         /*성공시 처리해야될 코드 작성*/
+		      },
+		      error : function(XHR, status, error) {
+		         console.error(status + " : " + error);
+		      }
+		   }); // ajax
+		
+	}); // document . ready
+	
+	
+}); // #btnSubmit function
+
+
+	function fetchList() { // 리스트 가져오기 (그리기를 시키는 기능)
+	
+		$.ajax({
+		      //요청항목 보낼떄
+		      url : "${pageContext.request.contextPath}/api/guestbook/list",      
+		      type : "post", // get으로 해도 안보이니까 post 방식
+		      //contentType : "application/json",
+		      //data : {name: "홍길동"},
+			
+		      //응답항목 받을때
+		      dataType : "json",
+		      success : function(guestbookList){ // json -> js 로 변환
+		        /*성공시 처리해야될 코드 작성*/
+		        console.log(guestbookList);
+		      	// console.log(guestbookList[0].name); // 데이터 잘 오는지 확인
+		      	
+		      	for (var i=0; i<guestbookList.length; i++) {
+		      		
+			      	render(guestbookList[i]); // 방명록 리스트 출력
+		      	} 
+		      	
+		      },
+		      error : function(XHR, status, error) {
+		         console.error(status + " : " + error);
+		      }
+		   }); // ajax
+	
+	}; // function fetchList
+
+	function render(guestbookVo) { // 1명씩 정보를 받아 처리
+		console.log("테이블 출력");
+		var str = '';
+		str += ' <table class="guestRead"> ';
+		str += ' 	<colgroup> ';
+		str += ' 		<col style="width: 10%;"> ';
+		str += ' 		<col style="width: 40%;"> ';
+		str += ' 		<col style="width: 40%;"> ';
+		str += ' 		<col style="width: 10%;"> ';
+		str += ' 	</colgroup> ';
+		str += ' 	<tr> ';
+		str += ' 		<td>No: '+guestbookVo.no+'</td> ';
+		str += ' 		<td>Name: '+guestbookVo.name+'</td> ';
+		str += ' 		<td>time: '+guestbookVo.regDate+'</td> ';
+		str += ' 		<td><a href="${pageContext.request.contextPath}/api/guestbook/deleteForm?no='+guestbookVo.no+'">[삭제]</a></td> ';
+		str += '	 </tr> ';
+		str += ' 	 <tr> ';
+		str += ' 	<td colspan=4 class="text-left">'+guestbookVo.content+'</td> ';
+		str += ' 	</tr> ';
+		str += ' </table> ';
+		str += ' ';
+		
+		$("#listArea").append(str); // .html 을 쓰면 바꿔치는 기능때문에 마지막글 만 출력 
+		
+	}; // function render
+	
 </script>
+
 
 </html>

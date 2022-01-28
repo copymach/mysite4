@@ -38,4 +38,19 @@
 		]]>
 	</delete>
 	
+	
+	<!-- 방명록 글 저장 selectKey -->
+	<!-- 아래insert문이 돌기 전에 시퀀스 넥스트벌에서 no숫자를 뽑아서 GuestbookVo에 no로 넣어줌 -->
+	<insert id="insertSelectKey" parameterType="com.javaex.vo.GuestbookVo">
+	
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+			select seq_guestbook_id.nextval from dual
+		</selectKey>
+	
+		<![CDATA[
+		insert into guestbook
+		values ( #{no }, #{name }, #{password }, #{content }, SYSDATE )
+		]]>
+	</insert>
+	
 </mapper>

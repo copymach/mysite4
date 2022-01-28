@@ -15,11 +15,25 @@ public class GuestbookService {
 	private GuestbookDao guestbookDao;
 	
 	public List<GuestbookVo> getGuestbookList() {
+		System.out.println("GuestbookService.getGuestbookList 실행");
 		return guestbookDao.getGuestbookList();
 	}
 	
 	public void contentInsert(GuestbookVo guestbookVo) {
+		System.out.println("GuestbookService.contentInsert 실행");
 		guestbookDao.contentInsert(guestbookVo);
 	}
+	
+	public void contentDelete (GuestbookVo guestbookVo) {
+		System.out.println("GuestbookService.contentDelete 실행");
+		guestbookDao.contentDelete(guestbookVo);
+	}
+	
+	public void addGuestbookResultVo(GuestbookVo guestbookVo) {
+		System.out.println("GuestbookService.addGuestbookResultVo 실행");
+		System.out.println("서비스 guestbookVo 출력 "+guestbookVo);
+		guestbookDao.insertSelectKey(guestbookVo);
+	}
+	
 	
 } // The end of  GuestbookService 
