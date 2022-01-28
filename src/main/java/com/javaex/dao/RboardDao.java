@@ -18,9 +18,8 @@ public class RboardDao {
 		System.out.println("RboardDao.getRboardList 실행");
 		
 		List<RboardVo> rboardList = sqlSession.selectList("rboard.selectList");
-		
 		return rboardList;
 	} // getBoardList
 
 	
-}
+} // The end of RboardDao 

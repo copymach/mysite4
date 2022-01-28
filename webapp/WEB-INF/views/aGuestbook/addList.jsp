@@ -6,9 +6,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>addList</title>
+<title>ajax addList</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery-1.12.4.js">
+</script>
 
 </head>
 
@@ -75,8 +78,7 @@
 						
 					</form>	
 					
-					<c:forEach items="${requestScope.guestbookList}" var="guestbookList">
-					
+					<%-- <c:forEach items="${requestScope.guestbookList}" var="guestbookList">
 					
 					<table class="guestRead">
 						<colgroup>
@@ -96,7 +98,7 @@
 						</tr>
 					</table>
 					
-					</c:forEach>
+					</c:forEach> --%>
 					
 					<!-- //guestRead -->
 					
@@ -117,5 +119,32 @@
 	<!-- //wrap -->
 
 </body>
+
+<script type="text/javascript">
+//로딩 전에 요청하기
+$(document).ready(function(){
+	console.log("리스트 요청");
+	
+	$.ajax({
+	      //요청항목
+	      url : "${pageContext.request.contextPath}/api/guestbook/list",      
+	      type : "post", // get으로 해도 안보이니까 post 방식
+	      //contentType : "application/json",
+	      //data : {name: "홍길동"},
+		
+	      //응답항목
+	      // dataType : "json",
+	      success : function(guestbookList){
+	         /*성공시 처리해야될 코드 작성*/
+	         console.log(guestbookList);
+	      },
+	      error : function(XHR, status, error) {
+	         console.error(status + " : " + error);
+	      }
+	   }); // ajax
+	
+}); // document . ready
+
+</script>
 
 </html>

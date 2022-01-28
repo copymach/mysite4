@@ -7,21 +7,20 @@
 <select id="selectList" resultType="RboardVo">
 	<![CDATA[
 	select  bd.no bno
-        ,title
-        ,content
-        ,hit
-        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
-        ,user_no uno
-        ,ur.id id
-        ,ur.password password
-        ,ur.name name
-        ,bd.group_no
-        ,bd.order_no
-        ,bd.depth
-from rboard bd, users ur
-where bd.user_no = ur.no
-order by reg_date desc
-;
+	        ,title
+	        ,content
+	        ,hit
+	        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
+	        ,user_no uno
+	        ,ur.id id
+	        ,ur.password password
+	        ,ur.name name
+	        ,bd.group_no
+	        ,bd.order_no
+	        ,bd.depth
+	from rboard bd, users ur
+	where bd.user_no = ur.no
+	order by reg_date desc
 	]]>
 </select>
 
