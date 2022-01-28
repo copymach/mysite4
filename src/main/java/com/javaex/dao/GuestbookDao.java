@@ -35,17 +35,21 @@ public class GuestbookDao {
 		return count;
 	} // contentDelete
 	
-//	방명록 글 저장(selectKey)
+//	방명록 글 저장(selectKey) // 성공한 갯수 리턴
 	public int insertSelectKey(GuestbookVo guestbookVo) {
 		System.out.println("GuestbookDao.insertSelectKey 실행");
 		
-		System.out.println("게북 다오 출력 no없다 "+guestbookVo); 
-		sqlSession.insert("guestbook.insertSelectKey", guestbookVo);
-		System.out.println("게북 다오 출력 no있다 "+guestbookVo); 
-		
-		return 3;
+//		sqlSession.selectOne("guestbook.selectGuest", guestbookVo.getNo());
+		return sqlSession.insert("guestbook.insertSelectKey", guestbookVo);
 	} // insertSelectKey
 	
 	
-	
+	//방명록 글1개 가져오기
+   public GuestbookVo selectGuest(int no) {
+      System.out.println("guestbookDao/selectGuest");
+      return sqlSession.selectOne("guestbook.selectByNo", no);
+   } // selectGuest
+
+   
 } // The end of GuestbookDao
+

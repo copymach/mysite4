@@ -38,15 +38,16 @@ public class ApiGuestbookController {
 	} // list
 	
 	
+	@ResponseBody //응답의 바디 부분에 붙어서 간다 gVo데이터를 json으로 보낸다  
 	@RequestMapping("/write")
-	public String write(@ModelAttribute GuestbookVo guestbookVo) {
+	public GuestbookVo write(@ModelAttribute GuestbookVo guestbookVo) {
 		System.out.println("apiGuestbookController.write 실행");
 //		System.out.println("guestbookVo 출력 "+guestbookVo);
 		
 //		저장하고 저장한 값 리턴
-		guestbookService.addGuestbookResultVo(guestbookVo);
-
-		return "";
+		GuestbookVo gVo = guestbookService.addGuestbookResultVo(guestbookVo);
+		System.out.println("컨트롤러 gVo 출력 "+gVo);
+		return gVo;
 	} // write
 	
 } // The end of ApiGuestbookController

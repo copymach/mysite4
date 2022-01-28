@@ -29,10 +29,17 @@ public class GuestbookService {
 		guestbookDao.contentDelete(guestbookVo);
 	}
 	
-	public void addGuestbookResultVo(GuestbookVo guestbookVo) {
+	public GuestbookVo addGuestbookResultVo(GuestbookVo guestbookVo) {
 		System.out.println("GuestbookService.addGuestbookResultVo 실행");
 		System.out.println("서비스 guestbookVo 출력 "+guestbookVo);
-		guestbookDao.insertSelectKey(guestbookVo);
+		
+		//저장하기
+		int count = guestbookDao.insertSelectKey(guestbookVo);
+		
+		//저장한 내용 가져오기
+		int no = guestbookVo.getNo();
+		GuestbookVo gVo = guestbookDao.selectGuest(no);
+		return gVo;
 	}
 	
 	

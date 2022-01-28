@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ajax addList</title>
+<title>ajax addList - guestbook</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
 
@@ -139,7 +139,7 @@ $("#btnSubmit").on("click", function(){
 	var password = $("#input-pass").val(); // 비번
 	var content = $("[name='content']").val(); //컨텐츠
 	
-	//객체만들기
+	//위에서 모은 데이터를 객체로 만들기
 	var guestbookVo = { 
 			name: name,
 			password: password,
@@ -148,10 +148,7 @@ $("#btnSubmit").on("click", function(){
 	
 	console.log(guestbookVo); //콘솔에 입력한 정보 제대로 뜨는지 확인
 	
-	//요청하기
-	
-		// 요청하기
-	$(document).ready(function(){
+	$(document).ready(function(){ // 리스트 요청하기
 		console.log("리스트 요청");
 		
 		$.ajax({
@@ -166,6 +163,13 @@ $("#btnSubmit").on("click", function(){
 		      //dataType : "json",
 		      success : function(result){
 		         /*성공시 처리해야될 코드 작성*/
+		         console.log("guestbookVo 출력확인 "+guestbookVo);
+		         render(guestbookVo, "up");
+		         
+		         $("#input-uname").val("");
+		         $("#input-pass").val("");
+		         $("[name='content']").val("");
+		         
 		      },
 		      error : function(XHR, status, error) {
 		         console.error(status + " : " + error);
@@ -174,40 +178,39 @@ $("#btnSubmit").on("click", function(){
 		
 	}); // document . ready
 	
-	
 }); // #btnSubmit function
 
 
-	function fetchList() { // 리스트 가져오기 (그리기를 시키는 기능)
-	
-		$.ajax({
-		      //요청항목 보낼떄
-		      url : "${pageContext.request.contextPath}/api/guestbook/list",      
-		      type : "post", // get으로 해도 안보이니까 post 방식
-		      //contentType : "application/json",
-		      //data : {name: "홍길동"},
-			
-		      //응답항목 받을때
-		      dataType : "json",
-		      success : function(guestbookList){ // json -> js 로 변환
-		        /*성공시 처리해야될 코드 작성*/
-		        console.log(guestbookList);
-		      	// console.log(guestbookList[0].name); // 데이터 잘 오는지 확인
-		      	
-		      	for (var i=0; i<guestbookList.length; i++) {
-		      		
-			      	render(guestbookList[i]); // 방명록 리스트 출력
-		      	} 
-		      	
-		      },
-		      error : function(XHR, status, error) {
-		         console.error(status + " : " + error);
-		      }
-		   }); // ajax
-	
-	}; // function fetchList
+function fetchList() { // 리스트 가져오기 (그리기를 시키는 기능)
 
-	function render(guestbookVo) { // 1명씩 정보를 받아 처리
+	$.ajax({
+	      //요청항목 보낼떄
+	      url : "${pageContext.request.contextPath}/api/guestbook/list",      
+	      type : "post", // get으로 해도 안보이니까 post 방식
+	      //contentType : "application/json",
+	      //data : {name: "홍길동"},
+		
+	      //응답항목 받을때
+	      dataType : "json",
+	      success : function(guestbookList){ // json -> js 로 변환
+	        /*성공시 처리해야될 코드 작성*/
+	        console.log(guestbookList);
+	      	// console.log(guestbookList[0].name); // 데이터 잘 오는지 확인
+	      	
+	      	for (var i=0; i<guestbookList.length; i++) {
+	      		
+		      	render(guestbookList[i], "down"); // 방명록 리스트 출력
+	      	} 
+	      	
+	      },
+	      error : function(XHR, status, error) {
+	         console.error(status + " : " + error);
+	      }
+	   }); // ajax
+
+}; // function fetchList
+
+	function render(guestbookVo, updown) { // 1명씩 정보를 받아 처리
 		console.log("테이블 출력");
 		var str = '';
 		str += ' <table class="guestRead"> ';
@@ -229,7 +232,13 @@ $("#btnSubmit").on("click", function(){
 		str += ' </table> ';
 		str += ' ';
 		
-		$("#listArea").append(str); // .html 을 쓰면 바꿔치는 기능때문에 마지막글 만 출력 
+		if (updown == 'down') {
+			$("#listArea").append(str); // .html 을 쓰면 바꿔치는 기능때문에 마지막글 만 출력 
+		} else if (updown == 'up') {
+			$("#listArea").prepend(str);
+		} else {
+			console.log("방향오류");
+		};
 		
 	}; // function render
 	
