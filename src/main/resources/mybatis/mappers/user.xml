@@ -36,4 +36,13 @@
 	]]>
 	</update>
 	
+	<!-- 아이디 중복 체크 -->
+	<select id="selectUserId" parameterType="com.javaex.vo.UserVo" resultType="com.javaex.vo.UserVo">
+	<![CDATA[
+		select id from users
+		where id = #{id}
+	]]>
+	</select>	
+	
+	
 </mapper>

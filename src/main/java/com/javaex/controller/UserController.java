@@ -2,12 +2,14 @@ package com.javaex.controller;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.UserService;
 import com.javaex.vo.UserVo;
@@ -119,5 +121,17 @@ public class UserController {
 		return "redirect:/";
 	} // modifyForm	
 	
+	
+	@RequestMapping(value="/user/joinIdCheck", method = {RequestMethod.POST, RequestMethod.GET})
+	public String idCheck(Model model, @RequestParam("idCheck") String id) {
+		System.out.println("UC.idCheck 출력 "+id);
+		
+		userService.selectUserId(id);
+		
+		model.addAttribute("idCheck", id);
+		System.out.println("UC.최종 id "+id);
+//		return id;
+		return "redirect:/user/joinForm";
+	}
 	
 } // The end of UserController

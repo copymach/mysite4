@@ -32,6 +32,11 @@ public class UserDao {
 		sqlSession.update("user.updateUser", userVo);
 	}
 	
+	public void selectUserId(String id) {
+		System.out.println("UserDao.selectUserId 실행"+id);
+		
+		sqlSession.selectOne("user.selectUserId", id);
+	}
 	
 	
 }

@@ -37,4 +37,11 @@ public class UserService {
 		return userDao.selectUser(userVo);
 	} //getUser
 	
+	public void selectUserId(String id) {
+		System.out.println("service.selectUserId 실행"+id);
+		userDao.selectUserId(id);
+	}
+	
+	
+	
 } // The end of UserService

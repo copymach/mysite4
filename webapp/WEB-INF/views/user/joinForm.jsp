@@ -44,6 +44,31 @@
 					</div>
 					<div class="clear"></div>
 				</div>
+				
+				<div id="user2">
+					<div id="joinForm2">
+						<form action="joinIdCheck" method="get">
+	
+							<!-- 아이디 -->
+							<!-- http://localhost:8088/mysite4/user/joinIdCheck?idCheck=ddd -->
+							<div class="form-group">
+								<label class="form-text" for="input-uid">아이디</label> 
+								<input type="text" id="input-uid" name="idCheck" value="" placeholder="아이디를 입력하세요" autofocus>
+								<!-- input 태그 쓰기 금지 readonly disabled - disabled 는 데이터전송안됨 --> 
+								<button type="submit" id="idDuplication">중복체크</button>
+								<!-- <button type="button" id="idDuplication">중복체크</button> -->
+								<input type="text" name="idcheckresult" value="id: ${idCheck.id }">
+							</div>
+							
+							<!-- 버튼영역 -->
+							<div class="button-area">
+								<button type="submit" id="btn-submit">아이디 체크</button>
+							</div>
+							
+						</form>
+					</div>
+				</div>
+										
 				<!-- //content-head -->
 	
 				<div id="user">
@@ -54,9 +79,10 @@
 							<div class="form-group">
 								<label class="form-text" for="input-uid">아이디</label> 
 								<input type="text" id="input-uid" name="id" value="" placeholder="아이디를 입력하세요" autofocus>
-								<button type="button" id="">중복체크</button>
+								<!-- input 태그 쓰기 금지 readonly disabled - disabled 는 데이터전송안됨 --> 
+								<button type="button" id="idDuplication">중복체크</button>
 							</div>
-	
+							
 							<!-- 비밀번호 -->
 							<div class="form-group">
 								<label class="form-text" for="input-pass">패스워드</label> 
@@ -113,5 +139,9 @@
 	<!-- //wrap -->
 
 </body>
+
+<script type="text/javascript">
+
+</script>
 
 </html>
