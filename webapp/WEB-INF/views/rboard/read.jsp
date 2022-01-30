@@ -46,42 +46,42 @@
 				</div>
 				<!-- //content-head -->
 	
-				<div id="board">
+				<div id="rboard">
 					<div id="read">
 						<form action="#" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span>
-								<span class="form-value">${boardList.user_name}</span>
+								<span class="form-value">${rboardList.user_name}</span>
 							</div>
 							
 							<!-- 조회수 -->
 							<div class="form-group">
 								<span class="form-text">조회수</span>
-								<span class="form-value">${boardList.hit }</span>
+								<span class="form-value">${rboardList.hit }</span>
 							</div>
 							
 							<!-- 작성일 -->
 							<div class="form-group">
 								<span class="form-text">작성일</span>
-								<span class="form-value">${boardList.reg_date }</span>
+								<span class="form-value">${rboardList.reg_date }</span>
 							</div>
 							
 							<!-- 제목 -->
 							<div class="form-group">
 								<span class="form-text">제 목</span>
-								<span class="form-value">${boardList.title }</span>
+								<span class="form-value">${rboardList.title }</span>
 							</div>
 						
 							<!-- 내용 -->
 							<div id="txt-content">
 								<span class="form-value" >
-									${boardList.content }
+									${rboardList.content }
 								</span>
 							</div>
 							
-							<a id="btn_modify" href="${pageContext.request.contextPath}/board/modifyForm?bno=${boardList.bno}">수정</a>
-							<a id="btn_modify" href="${pageContext.request.contextPath}/board/list">목록</a>
+							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/modifyForm?bno=${rboardList.bno}">수정</a>
+							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/list">목록</a>
 							
 						</form>
 						<!-- //form -->

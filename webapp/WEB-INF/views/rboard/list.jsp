@@ -72,7 +72,7 @@
 							
 								<tr>
 									<td>${rboardList.bno}</td>
-									<td class="text-left"><a href="/mysite4/rboard/read?bno=${rboardList.bno }">${rboardList.title }</a></td>
+									<td class="text-left"><a href="${pageContext.request.contextPath}/rboard/read?bno=${rboardList.bno }">${rboardList.title }</a></td>
 									<td>${rboardList.id } (${rboardList.uno}:${rboardList.user_name })</td>
 									<td>${rboardList.hit }</td>
 									<td>${rboardList.reg_date}</td>
@@ -114,7 +114,7 @@
 								<td>글쓰기 하려면 로그인하세요</td>
 							</c:when>
 							<c:otherwise>
-								<a id="btn_write" href="${pageContext.request.contextPath}/board/writeForm">글쓰기</a>
+								<a id="btn_write" href="${pageContext.request.contextPath}/rboard/writeForm">글쓰기</a>
 							</c:otherwise>
 						</c:choose>
 					</div>

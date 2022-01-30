@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.javaex.vo.BoardVo;
 import com.javaex.vo.RboardVo;
 
 @Repository
@@ -21,5 +22,14 @@ public class RboardDao {
 		return rboardList;
 	} // getBoardList
 
+	public BoardVo read(int bno) {
+		System.out.println("RboardDao.read 실행");
+		return sqlSession.selectOne("rboard.selectOne", bno);
+	} //read
+	
+	public void hit(int bno) {
+		System.out.println("RboardDao.read 실행");
+		sqlSession.update("rboard.updateHit", bno);
+	}
 	
 } // The end of RboardDao 

@@ -24,4 +24,33 @@
 	]]>
 </select>
 
+
+<select id="selectOne" parameterType="RboardVo" resultType="RboardVo">
+	<![CDATA[
+	select  bd.no bno
+	        ,title
+	        ,content
+	        ,hit
+	        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
+	        ,user_no uno
+	        ,ur.id id
+	        ,ur.password password
+	        ,ur.name name
+	        ,bd.group_no
+	        ,bd.order_no
+	        ,bd.depth
+	from rboard bd, users ur
+	where bd.user_no = ur.no
+	and bd.no = #{bno}
+	]]>
+</select>
+
+<update id="updateHit" parameterType="RboardVo">
+	<![CDATA[
+	UPDATE rboard 
+	set HIT = NVL(HIT, 0) + 1
+	WHERE rboard.no = #{bno}
+	]]>	
+</update>
+
 </mapper>

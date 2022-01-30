@@ -7,8 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.RboardService;
+import com.javaex.vo.BoardVo;
 import com.javaex.vo.RboardVo;
 
 @Controller
@@ -30,5 +32,20 @@ public class RboardController {
 //		System.out.println("RC.rboardList 출력 "+rboardList); //정상동작확인
 		return "rboard/list";
 	} // list	
+	
+	
+	@RequestMapping(value="/read", method= {RequestMethod.GET, RequestMethod.POST})
+	public String read(@RequestParam("bno") int bno, Model model) {
+		System.out.println("rboardList.read 실행");
+		
+		BoardVo boardList = rboardService.read(bno);
+		
+		rboardService.hit(bno);
+		
+		model.addAttribute("boardList", boardList);
+
+		return "/board/read";
+	} // read
+	
 	
 } // The end of RboardController
