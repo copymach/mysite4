@@ -66,20 +66,20 @@
 								</tr>
 							</thead>
 
-							<c:forEach items="${requestScope.boardList}" var="boardList">
+							<c:forEach items="${requestScope.rboardList}" var="rboardList">
 							
 							<tbody>
 							
 								<tr>
-									<td>${boardList.bno}</td>
-									<td class="text-left"><a href="/mysite4/board/read?bno=${boardList.bno }">${boardList.title }</a></td>
-									<td>${boardList.id } (${boardList.uno}:${boardList.user_name })</td>
-									<td>${boardList.hit }</td>
-									<td>${boardList.reg_date}</td>
+									<td>${rboardList.bno}</td>
+									<td class="text-left"><a href="/mysite4/rboard/read?bno=${rboardList.bno }">${rboardList.title }</a></td>
+									<td>${rboardList.id } (${rboardList.uno}:${rboardList.user_name })</td>
+									<td>${rboardList.hit }</td>
+									<td>${rboardList.reg_date}</td>
 									
 									<!-- 로그인한 사람의 no와 글쓴이의 uno가 일치하면 삭제버튼 출력 -->
-									<c:if test="${authUser.no == boardList.uno}">
-										<td><a href="${pageContext.request.contextPath}/board/delete?bno=${boardList.bno}&uno=${authUser.no}">[삭제]</a></td>
+									<c:if test="${authUser.no == rboardList.uno}">
+										<td><a href="${pageContext.request.contextPath}/rboard/delete?bno=${rboardList.bno}&uno=${authUser.no}">[삭제]</a></td>
 									</c:if>
 
 								</tr>
