@@ -5,12 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>read</title>
+<title>rboard.read</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
-
 </head>
-
 
 <body>
 	<div id="wrap">
@@ -46,13 +44,13 @@
 				</div>
 				<!-- //content-head -->
 	
-				<div id="rboard">
+				<div id="board">
 					<div id="read">
 						<form action="#" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
-								<span class="form-text">작성자</span>
-								<span class="form-value">${rboardList.user_name}</span>
+								<span class="form-text">작성자id (uno:name)</span>
+								<span class="form-value">${rboardList.id } (${rboardList.uno}:${rboardList.user_name})</span>
 							</div>
 							
 							<!-- 조회수 -->

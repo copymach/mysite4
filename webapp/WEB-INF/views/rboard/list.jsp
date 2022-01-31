@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>list</title>
+<title>rboard.list</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 
@@ -58,7 +58,7 @@
 							<thead>
 								<tr>
 									<th>번호</th>
-									<th>제목</th>
+									<th>제목 (gn그룹넘버 on오더넘버 de깊이)</th>
 									<th>글쓴이id (uno:userName)</th>
 									<th>조회수</th>
 									<th>작성일</th>
@@ -72,7 +72,7 @@
 							
 								<tr>
 									<td>${rboardList.bno}</td>
-									<td class="text-left"><a href="${pageContext.request.contextPath}/rboard/read?bno=${rboardList.bno }">${rboardList.title }</a></td>
+									<td class="text-left"><a href="${pageContext.request.contextPath}/rboard/read?bno=${rboardList.bno }">${rboardList.title }</a> ( gn:${rboardList.group_no} / on:${rboardList.order_no} / dp:${rboardList.depth} )</td>
 									<td>${rboardList.id } (${rboardList.uno}:${rboardList.user_name })</td>
 									<td>${rboardList.hit }</td>
 									<td>${rboardList.reg_date}</td>

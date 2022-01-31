@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.javaex.service.RboardService;
-import com.javaex.vo.BoardVo;
 import com.javaex.vo.RboardVo;
 
 @Controller
@@ -23,29 +23,56 @@ public class RboardController {
 //	리스트 출력
 	@RequestMapping(value="/list", method= {RequestMethod.POST, RequestMethod.GET})
 	public String list(Model model) {
-		System.out.println("rboard.list 출력");
+		System.out.println("RboardController.list 출력");
 		
 		List<RboardVo> rboardList= rboardService.getRboardList();
 		
 //		DS에서 리스트 데이터 공유하는 model
 		model.addAttribute("rboardList",rboardList);
-//		System.out.println("RC.rboardList 출력 "+rboardList); //정상동작확인
 		return "rboard/list";
 	} // list	
 	
 	
 	@RequestMapping(value="/read", method= {RequestMethod.GET, RequestMethod.POST})
 	public String read(@RequestParam("bno") int bno, Model model) {
-		System.out.println("rboardList.read 실행");
+		System.out.println("RboardController.read 실행");
 		
-		BoardVo boardList = rboardService.read(bno);
+		RboardVo rboardList = rboardService.read(bno);
 		
 		rboardService.hit(bno);
 		
-		model.addAttribute("boardList", boardList);
-
-		return "/board/read";
+		model.addAttribute("rboardList", rboardList);
+		System.out.println("UC rboardList 출력"+rboardList);
+		return "/rboard/read";
 	} // read
+	
+	
+	@RequestMapping(value="/writeForm", method= {RequestMethod.GET, RequestMethod.POST})
+	public String writeForm() {
+		System.out.println("RboardController.writeForm 실행");	
+		return "/rboard/writeForm";
+	} // writeForm
+	
+	
+	@RequestMapping(value="/write", method= {RequestMethod.GET, RequestMethod.POST})
+	public String write(@ModelAttribute RboardVo rboardVo) {
+		System.out.println("RboardController.write 실행");	
+		
+		rboardService.write(rboardVo);
+		System.out.println("RC rboardVo 출력 "+rboardVo);
+		
+		return "redirect:/rboard/list";
+	} // write
+	
+	
+	@RequestMapping(value="/delete", method= {RequestMethod.GET, RequestMethod.POST})
+	public String delete(@ModelAttribute RboardVo rboardVo) {
+		System.out.println("RboardController.delete 실행");
+		
+//		유저번호 uno와 글번호bno가 일치해야 삭제가능
+		rboardService.delete(rboardVo);
+		return "redirect:/rboard/list";
+	} // delete
 	
 	
 } // The end of RboardController

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.javaex.dao.RboardDao;
-import com.javaex.vo.BoardVo;
 import com.javaex.vo.RboardVo;
 
 @Repository
@@ -20,15 +19,25 @@ public class RboardService {
 		return rboardDao.getRboardList();
 	} // getBoardList
 	
-	public BoardVo read (int bno) {
-		System.out.println("BoardService.read 실행");
+	public RboardVo read (int bno) {
+		System.out.println("RboardService.read 실행");
 		return rboardDao.read(bno);
 	} // read
 	
 	public void hit (int bno) {
-		System.out.println("BoardService.hit 실행");
+		System.out.println("RboardService.hit 실행");
 		rboardDao.hit(bno);
 	} // hit
+	
+	public void write (RboardVo rboardVo) {
+		System.out.println("RboardService.write 실행");
+		rboardDao.write(rboardVo);
+	} // write
+	
+	public void delete (RboardVo rboardVo) {
+		System.out.println("RboardService.delete 실행");
+		rboardDao.delete(rboardVo);
+	} // delete
 	
 	
 } // The end of RboardService 

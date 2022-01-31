@@ -14,7 +14,7 @@
 	        ,user_no uno
 	        ,ur.id id
 	        ,ur.password password
-	        ,ur.name name
+	        ,ur.name user_name
 	        ,bd.group_no
 	        ,bd.order_no
 	        ,bd.depth
@@ -34,7 +34,7 @@
 	        ,user_no uno
 	        ,ur.id id
 	        ,ur.password password
-	        ,ur.name name
+	        ,ur.name user_name
 	        ,bd.group_no
 	        ,bd.order_no
 	        ,bd.depth
@@ -51,5 +51,32 @@
 	WHERE rboard.no = #{bno}
 	]]>	
 </update>
+
+<!-- 게시판 정보 입력해보기 식별번호(no시퀀스), 제목, 내용, 조회수, 
+등록일, 그룹번호, 그룹순서, 깊이, 유저번호
+새글의 경우 group_no 는 글번호와 동일, order_no는 1, depth는 0 -->
+<insert id="insertContent" parameterType="RboardVo">
+	<![CDATA[
+	INSERT INTO rboard VALUES (seq_rboard_no.nextval
+			, #{title}
+			, #{content} 
+			, #{hit}
+			, sysdate
+			, seq_rboard_group_no.nextval
+			, #{order_no}
+			, #{depth}
+			, #{uno}
+			)
+	]]>
+</insert>
+
+<delete id="deleteContent" parameterType="RboardVo">
+	<![CDATA[
+	DELETE FROM rboard
+	WHERE	user_no = #{uno} 
+	and		no = #{bno}
+	]]>
+</delete>
+
 
 </mapper>

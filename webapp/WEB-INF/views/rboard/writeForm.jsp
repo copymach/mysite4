@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>writeForm</title>
+<title>rboard.writeForm</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 
@@ -48,7 +48,7 @@
 	
 				<div id="board">
 					<div id="writeForm">
-						<form action="${pageContext.request.contextPath}/board/write" method="get">
+						<form action="${pageContext.request.contextPath}/rboard/write" method="get">
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label>
@@ -59,8 +59,16 @@
 							<div class="form-group">
 								<textarea id="txt-content" name="content"> </textarea>
 							</div>
+							
 							<input type="text" name="uno" value="${authUser.no}">
-							<a id="btn_cancel" href="${pageContext.request.contextPath}/board/list">취소</a>
+							<input type="text" name="order_no" value="1">
+							<input type="text" name="depth" value="0">
+							
+<!-- 게시판 글 입력시 필요정보 식별번호(no시퀀스), 제목, 내용, 조회수, 
+등록일, 그룹번호, 그룹순서, 깊이, 유저번호
+새글의 경우 group_no 는 글번호와 동일, order_no는 1, depth는 0 -->
+
+							<a id="btn_cancel" href="${pageContext.request.contextPath}/rboard/list">취소</a>
 							<button id="btn_add" type="submit" >등록</button>
 							
 						</form>
