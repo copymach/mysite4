@@ -64,6 +64,22 @@ public class RboardController {
 		return "redirect:/rboard/list";
 	} // write
 	
+	@RequestMapping(value="/rwriteForm", method= {RequestMethod.GET, RequestMethod.POST})
+	public String rwriteForm() {
+		System.out.println("RboardController.rwriteForm 실행");	
+		return "/rboard/rwriteForm";
+	} // rwriteForm	
+	
+	/*
+	 * @RequestMapping(value="/rwrite", method= {RequestMethod.GET,
+	 * RequestMethod.POST}) public String rwrite(@ModelAttribute RboardVo rboardVo)
+	 * { System.out.println("RboardController.rwrite 실행");
+	 * 
+	 * rboardService.rwrite(rboardVo); //
+	 * System.out.println("RC rboardVo 출력 "+rboardVo);
+	 * 
+	 * return "redirect:/rboard/list"; } // write
+	 */	
 	
 	@RequestMapping(value="/delete", method= {RequestMethod.GET, RequestMethod.POST})
 	public String delete(@ModelAttribute RboardVo rboardVo) {

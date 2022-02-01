@@ -78,8 +78,21 @@
 								</span>
 							</div>
 							
-							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/modifyForm?bno=${rboardList.bno}">수정</a>
+							<!-- 로그인한 사람의 no와 글쓴이의 uno가 일치하면 댓글 달기 수정 버튼 출력 -->
+							<c:if test="${authUser.no == rboardList.uno}">
+								<a href="${pageContext.request.contextPath}/rboard/delete?bno=${rboardList.bno}&uno=${authUser.no}">삭제</a>
+								
+							</c:if>
+									
+							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/modifyForm?bno=${rboardList.bno}&uno=${authUser.no}">수정</a>
+							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/rwriteForm?bno=${rboardList.bno}">댓글달기</a>
 							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/list">목록</a>
+							
+							bno<input type="text" name="bno" value="${rboardList.bno}">
+							no<input type="text" name="no" value="${authUser.no}">
+							group_no<input type="text" name="group_no" value="${rboardList.group_no}">
+							order_no<input type="text" name="order_no" value="${rboardList.order_no}">
+							depth<input type="text" name="depth" value="${rboardList.depth}">
 							
 						</form>
 						<!-- //form -->
