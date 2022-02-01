@@ -48,29 +48,29 @@
 	
 				<div id="board">
 					<div id="modifyForm">
-						<form action="${pageContext.request.contextPath}/board/modify" method="get">
+						<form action="${pageContext.request.contextPath}/rboard/modify" method="get">
 							<!-- 작성자 -->
 							<div class="form-group">
 								<span class="form-text">작성자</span>
-								<span class="form-value">${boardList.user_name}</span>
+								<span class="form-value">${rboardList.user_name}</span>
 							</div>
 							
 							<!-- 조회수 -->
 							<div class="form-group">
 								<span class="form-text">조회수</span>
-								<span class="form-value">${boardList.hit }</span>
+								<span class="form-value">${rboardList.hit }</span>
 							</div>
 							
 							<!-- 작성일 -->
 							<div class="form-group">
 								<span class="form-text">작성일</span>
-								<span class="form-value">${boardList.reg_date }</span>
+								<span class="form-value">${rboardList.reg_date }</span>
 							</div>
 							
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label>
-								<input type="text" id="txt-title" name="title" value="${boardList.title }">
+								<input type="text" id="txt-title" name="title" value="${rboardList.title }">
 							</div>
 						
 							
@@ -79,13 +79,14 @@
 							<div class="form-group">
 								<textarea id="txt-content" name="content">
 								
-								${boardList.content }
+								${rboardList.content }
 								
 								</textarea>
 							</div>
 							
-							<a id="btn_cancel" href="${pageContext.request.contextPath}/board/read?bno=${boardList.bno}">취소</a>
-							<input type="text" name="bno" value="${boardList.bno }">
+							<a id="btn_cancel" href="${pageContext.request.contextPath}/rboard/read?bno=${rboardList.bno}&uno=${rboardList.uno}">취소</a>
+							<input type="text" name="bno" value="${rboardList.bno}">
+							<input type="text" name="uno" value="${rboardList.uno}">
 							<button id="btn_modify" type="submit" >수정</button>
 							
 						</form>

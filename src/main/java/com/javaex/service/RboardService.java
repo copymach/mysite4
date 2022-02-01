@@ -39,5 +39,10 @@ public class RboardService {
 		rboardDao.delete(rboardVo);
 	} // delete
 	
+	public void modify (RboardVo rboardVo) {
+		System.out.println("RboardService.modify 실행");
+		rboardDao.modify(rboardVo);
+	} // modify
+	
 	
 } // The end of RboardService 

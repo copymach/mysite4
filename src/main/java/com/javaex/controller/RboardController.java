@@ -42,7 +42,7 @@ public class RboardController {
 		rboardService.hit(bno);
 		
 		model.addAttribute("rboardList", rboardList);
-		System.out.println("UC rboardList 출력"+rboardList);
+//		System.out.println("UC rboardList 출력"+rboardList);
 		return "/rboard/read";
 	} // read
 	
@@ -59,7 +59,7 @@ public class RboardController {
 		System.out.println("RboardController.write 실행");	
 		
 		rboardService.write(rboardVo);
-		System.out.println("RC rboardVo 출력 "+rboardVo);
+//		System.out.println("RC rboardVo 출력 "+rboardVo);
 		
 		return "redirect:/rboard/list";
 	} // write
@@ -73,6 +73,30 @@ public class RboardController {
 		rboardService.delete(rboardVo);
 		return "redirect:/rboard/list";
 	} // delete
+	
+	
+	@RequestMapping(value="/modifyForm", method = {RequestMethod.POST, RequestMethod.GET})
+	public String modifyForm(@RequestParam("bno") int bno, Model model) {
+		System.out.println("RboardController.modifyForm 실행");
+		
+		RboardVo rboardList = rboardService.read(bno);
+		
+		model.addAttribute("rboardList", rboardList);
+		
+//		System.out.println("RC. rboardList 출력 "+rboardList);
+		return "/rboard/modifyForm";
+	}
+	
+	@RequestMapping(value="/modify", method= {RequestMethod.GET, RequestMethod.POST})
+	public String modify(@ModelAttribute RboardVo rboardVo) {
+		System.out.println("RboardController.modify 실행");
+		
+//		저장한 bno + uno 일치해야 수정기능 동작 
+		rboardService.modify(rboardVo);
+		System.out.println("RC rboardVo 출력 "+rboardVo);
+		
+		return "redirect:/rboard/list";
+	} // modify
 	
 	
 } // The end of RboardController

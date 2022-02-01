@@ -41,5 +41,10 @@ public class RboardDao {
 		sqlSession.delete("rboard.deleteContent", rboardVo);
 	} // delete
 	
+	public void modify(RboardVo rboardVo) {
+		System.out.println("RboardDao.modify 실행");
+		sqlSession.update("rboard.modifyContent", rboardVo);
+	} // modify
+
 	
 } // The end of RboardDao 

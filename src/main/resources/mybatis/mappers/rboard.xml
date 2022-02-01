@@ -78,5 +78,15 @@
 	]]>
 </delete>
 
+<update id="modifyContent" parameterType="RboardVo">
+	<![CDATA[
+	UPDATE rboard
+	SET	title = #{title}
+		,content = #{content}
+	WHERE no = #{bno}
+	and user_no = #{uno}	
+	]]>
+</update>
+
 
 </mapper>

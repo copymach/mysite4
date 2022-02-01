@@ -62,12 +62,18 @@ VALUES (seq_rboard_no.nextval, '맛과 가격을 잡은 가성비 귤', '타이�
 INSERT INTO rboard 
 VALUES (seq_rboard_no.nextval, '민초파 여기 모여라', '주말에 베라 ㄱㄱ' , 0 , sysdate, seq_rboard_group_no.nextval, 1, 0, 6);
 
+INSERT INTO rboard 
+VALUES (seq_rboard_no.nextval, '치킨 땡긴다', '뭐시켜먹을까' , 0 , sysdate, seq_rboard_group_no.nextval, 1, 0, 7);
+
 
 
 -- 수정기능 (id n번)의 데이터를 변경
 UPDATE rboard
-SET title = '동해물과백두산이'
-WHERE no = 8 ;
+SET title = '동해물과백두산이',
+    content = '마르고 닳도록'
+WHERE no = 6
+and user_no = 16
+;
 
 
 -- 테이블에서 (no번) 데이터를 삭제해 보세요
@@ -82,8 +88,50 @@ commit;
 --롤백
 rollback;
 
+-- selectOne 게시물 하나만 가져오기
+select  bd.no bno
+        ,title
+        ,content
+        ,hit
+        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
+        ,user_no uno
+        ,ur.id id
+        ,ur.password password
+        ,ur.name name
+        ,bd.group_no
+        ,bd.order_no
+        ,bd.depth
+from rboard bd, users ur
+where bd.user_no = ur.no
+and bd.no = 9;
+
+--hit 카운터
+UPDATE rboard 
+set HIT = NVL(HIT, 0) + 1
+WHERE rboard.no = 9;
+    
+
+-- 게시물 1개 삭제
+DELETE FROM rboard
+WHERE user_no = 16 
+and no = 3
+;
 
 
+		
+
+select  bd.no bno
+        ,title
+        ,content
+        ,hit
+        ,to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') reg_date 
+        ,user_no uno
+        ,ur.id id
+        ,ur.password password
+        ,ur.name user_name         
+from board bd, users ur
+where bd.user_no = ur.no
+and bd.no = 9;
 
 
 
