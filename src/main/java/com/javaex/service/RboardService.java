@@ -34,6 +34,11 @@ public class RboardService {
 		rboardDao.write(rboardVo);
 	} // write
 	
+	public void replyWrite (RboardVo rboardVo) {
+		System.out.println("RboardService.replyWrite 실행");
+		rboardDao.write(rboardVo);
+	} // replyWrite
+	
 	public void delete (RboardVo rboardVo) {
 		System.out.println("RboardService.delete 실행");
 		rboardDao.delete(rboardVo);

@@ -1,12 +1,9 @@
 -- rboard 계층형 게시판 만들기
 
-
 --테이블 삭제 초기화
 drop table rboard;
-
 --테이블 내용만 초기화 
 TRUNCATE TABLE rboard;
-
 --id 번호 자동생성 꼬일때 초기화 (리셋)
 drop SEQUENCE seq_rboard_no; 
 drop SEQUENCE seq_rboard_group_no;
@@ -65,6 +62,45 @@ VALUES (seq_rboard_no.nextval, '민초파 여기 모여라', '주말에 베라 �
 INSERT INTO rboard 
 VALUES (seq_rboard_no.nextval, '치킨 땡긴다', '뭐시켜먹을까' , 0 , sysdate, seq_rboard_group_no.nextval, 1, 0, 7);
 
+INSERT INTO rboard 
+VALUES (seq_rboard_no.nextval, '원글 제목1', '원글 내용1' , 0 , sysdate, seq_rboard_group_no.nextval, 1, 0, 7);
+
+
+--댓글 정보 no시퀀스, 제목, 내용, 조회수, 등록일, 그룹번호, 그룹순서, 깊이, 유저번호
+--댓글의 경우 group_no 는 글번호와 동일, order_no는 +1, depth는 +1
+INSERT INTO rboard 
+VALUES (seq_rboard_no.nextval, '댓글제목', '댓글내용' , 0 , sysdate
+        , 10
+        , order_no+1 
+        , depth+1
+        , 5)
+;
+
+INSERT INTO rboard 
+VALUES (seq_rboard_no.nextval, '댓글제목2', '댓글내용2' , 0 , sysdate, 5, order_no+1, depth+1, 6);
+
+INSERT INTO rboard 
+VALUES (seq_rboard_no.nextval, '댓글제목3', '댓글내용3' , 0 , sysdate, 5, +1, +1, 7);
+
+
+insert into rboard value (
+(SELECT ISNULL(MAX(order_no),0) + 1 FROM rboard)
+, (SELECT NVL(MAX(depth), 0) + 1 FROM rboard)
+)
+where no= 5
+;
+
+select * from rboard;
+
+--NVL(MAX(depth),0)+1
+--SELECT TO_NUMBER(NVL(MAX(order_no), '0')) + 1 FROM rboard;
+
+--NVL(MAX(Column2),'0')+1
+
+--Insert rboard
+--into Column1, Column2
+--values("Column1에 들어갈 값", "NVL(MAX(Column2),'0')+1 );
+
 
 
 -- 수정기능 (id n번)의 데이터를 변경
@@ -103,7 +139,7 @@ select  bd.no bno
         ,bd.depth
 from rboard bd, users ur
 where bd.user_no = ur.no
-and bd.no = 9;
+and bd.no = 2;
 
 --hit 카운터
 UPDATE rboard 
@@ -119,7 +155,7 @@ and no = 3
 
 
 		
-
+-- 게시물 1개 불러오기
 select  bd.no bno
         ,title
         ,content
@@ -149,7 +185,7 @@ select  bd.no bno
         ,title
         ,content
         ,hit
-        ,to_char(reg_date, 'yy-mm-dd hh24:mi') regDate 
+        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date
         ,user_no uno
         ,ur.id id
         ,ur.password password
@@ -159,7 +195,7 @@ select  bd.no bno
         ,bd.depth
 from rboard bd, users ur
 where bd.user_no = ur.no
-order by regDate desc
+order by reg_date desc, group_no DESC, order_no ASC
 ;
 
 --게시판 내용
@@ -195,5 +231,22 @@ set     title = '수정한 제목',
 WHERE rboard.no = 9;
 
 
+select  bd.no bno
+	        ,title
+	        ,content
+	        ,hit
+	        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
+	        ,user_no uno
+	        ,ur.id id
+	        ,ur.password password
+	        ,ur.name user_name
+	        ,bd.group_no
+	        ,bd.order_no
+	        ,bd.depth
+from rboard bd, users ur
+where bd.user_no = ur.no
+order by reg_date desc;
+        
+            
+select * from rboard;    
 
-                    

@@ -85,7 +85,7 @@
 							</c:if>
 									
 							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/modifyForm?bno=${rboardList.bno}&uno=${authUser.no}">수정</a>
-							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/rwriteForm?bno=${rboardList.bno}">댓글달기</a>
+							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/replyWriteForm?bno=${rboardList.bno}&uno=${authUser.no}&group_no=${rboardList.group_no}&order_no=${rboardList.order_no}&depth=${rboardList.depth}">댓글달기</a>
 							<a id="btn_modify" href="${pageContext.request.contextPath}/rboard/list">목록</a>
 							
 							bno<input type="text" name="bno" value="${rboardList.bno}">

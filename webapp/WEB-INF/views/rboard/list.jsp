@@ -58,7 +58,7 @@
 							<thead>
 								<tr>
 									<th>번호</th>
-									<th>제목 (gn그룹넘버 on오더넘버 de깊이)</th>
+									<th>제목 (gn그룹넘버 on오더넘버 dp깊이)</th>
 									<th>글쓴이id (uno:userName)</th>
 									<th>조회수</th>
 									<th>작성일</th>

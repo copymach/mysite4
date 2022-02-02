@@ -48,7 +48,7 @@
 	
 				<div id="board">
 					<div id="writeForm">
-						<form action="${pageContext.request.contextPath}/rboard/write" method="get">
+						<form action="${pageContext.request.contextPath}/rboard/replyWrite" method="get">
 							<!-- 제목 -->
 							<div class="form-group">
 								<label class="form-text" for="txt-title">제목</label>
@@ -60,9 +60,6 @@
 								<textarea id="txt-content" name="content"> </textarea>
 							</div>
 							
-							<input type="text" name="uno" value="${authUser.no}">
-							<input type="text" name="order_no" value="1">
-							<input type="text" name="depth" value="0">
 							
 <!-- 게시판 글 입력시 필요정보 식별번호(no시퀀스), 제목, 내용, 조회수, 
 등록일, 그룹번호, 그룹순서, 깊이, 유저번호
@@ -70,6 +67,13 @@
 
 							<a id="btn_cancel" href="${pageContext.request.contextPath}/rboard/list">취소</a>
 							<button id="btn_add" type="submit" >등록</button>
+							
+							bno<input type="text" name="bno" value="${rboardList.bno}">
+							uno<input type="text" name="uno" value="${authUser.no}">
+							group_no<input type="text" name="group_no" value="${rboardList.group_no}">
+							order_no<input type="text" name="order_no" value="${rboardList.order_no}">
+							depth<input type="text" name="depth" value="${rboardList.depth}">
+							
 							
 						</form>
 						<!-- //form -->

@@ -59,27 +59,34 @@ public class RboardController {
 		System.out.println("RboardController.write 실행");	
 		
 		rboardService.write(rboardVo);
-//		System.out.println("RC rboardVo 출력 "+rboardVo);
 		
 		return "redirect:/rboard/list";
 	} // write
 	
-	@RequestMapping(value="/rwriteForm", method= {RequestMethod.GET, RequestMethod.POST})
-	public String rwriteForm() {
-		System.out.println("RboardController.rwriteForm 실행");	
-		return "/rboard/rwriteForm";
-	} // rwriteForm	
+	@RequestMapping(value="/replyWriteForm", method= {RequestMethod.GET, RequestMethod.POST})
+	public String rwriteForm(Model model, @RequestParam("bno") int bno, 
+							@RequestParam("uno") int uno,
+							@RequestParam("group_no") int group_no,
+							@RequestParam("order_no") int order_no,
+							@RequestParam("depth") int depth) {
+		System.out.println("RboardController.replyWriteForm 실행");
+		
+		RboardVo rboardList = rboardService.read(bno);
+		model.addAttribute("rboardList", rboardList);
+		System.out.println(rboardList);
+		return "/rboard/replyWriteForm";
+	} // replyWriteForm
 	
-	/*
-	 * @RequestMapping(value="/rwrite", method= {RequestMethod.GET,
-	 * RequestMethod.POST}) public String rwrite(@ModelAttribute RboardVo rboardVo)
-	 * { System.out.println("RboardController.rwrite 실행");
-	 * 
-	 * rboardService.rwrite(rboardVo); //
-	 * System.out.println("RC rboardVo 출력 "+rboardVo);
-	 * 
-	 * return "redirect:/rboard/list"; } // write
-	 */	
+	
+	@RequestMapping(value="/replyWrite", method= {RequestMethod.GET, RequestMethod.POST}) 
+	public String rwrite(@ModelAttribute RboardVo rboardVo) { 
+		System.out.println("RboardController.replyWrite 실행");
+		
+		rboardService.replyWrite(rboardVo); 
+		System.out.println("RC rboardVo 출력 "+rboardVo);
+  
+		return "redirect:/rboard/list"; } // replyWrite
+ 	
 	
 	@RequestMapping(value="/delete", method= {RequestMethod.GET, RequestMethod.POST})
 	public String delete(@ModelAttribute RboardVo rboardVo) {

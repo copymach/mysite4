@@ -36,6 +36,11 @@ public class RboardDao {
 		sqlSession.insert("rboard.insertContent", rboardVo);
 	} // write
 	
+	public void replyWrite(RboardVo rboardVo) {
+		System.out.println("RboardDao.replyWrite 실행");
+		sqlSession.insert("rboard.insertReplyContent", rboardVo);
+	} // replyWrite
+	
 	public void delete(RboardVo rboardVo) {
 		System.out.println("RboardDao.delete 실행");
 		sqlSession.delete("rboard.deleteContent", rboardVo);
