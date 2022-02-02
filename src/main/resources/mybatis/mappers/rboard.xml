@@ -10,7 +10,7 @@
 	        ,title
 	        ,content
 	        ,hit
-	        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
+	        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date
 	        ,user_no uno
 	        ,ur.id id
 	        ,ur.password password
@@ -20,10 +20,9 @@
 	        ,bd.depth
 	from rboard bd, users ur
 	where bd.user_no = ur.no
-	order by reg_date desc
+	order by reg_date desc, group_no DESC, order_no ASC
 	]]>
 </select>
-<!-- , group_no DESC, order_no ASC -->
 
 <select id="selectOne" parameterType="RboardVo" resultType="RboardVo">
 	<![CDATA[
@@ -61,15 +60,33 @@
 	INSERT INTO rboard VALUES (seq_rboard_no.nextval
 			, #{title}
 			, #{content} 
-			, #{hit}
+			, 0
 			, sysdate
 			, seq_rboard_group_no.nextval
-			, #{order_no}
-			, #{depth}
+			, 1
+			, 0
 			, #{uno}
 			)
 	]]>
 </insert>
+
+
+<!-- 댓글의 order_no depth를 select문내에서 처리하려다가 실패 hit 처럼 따로 처리 -->
+<insert id="insertReply" parameterType="RboardVo">
+	<![CDATA[
+	INSERT INTO rboard VALUES (seq_rboard_no.nextval
+			, #{title}
+			, #{content} 
+			, 0
+			, sysdate
+			, #{group_no}
+			, #{order_no}+1
+			, #{depth}+1
+			, #{uno}
+			)
+	]]>
+</insert>
+
 
 <delete id="deleteContent" parameterType="RboardVo">
 	<![CDATA[
