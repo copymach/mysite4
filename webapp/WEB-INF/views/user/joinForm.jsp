@@ -9,6 +9,11 @@
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
 
+
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery-1.12.4.js"> </script>
+<!-- 부트스트랩 제이쿼리 아래 위치한다 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/assets/bootstrap/js/bootstrap.js"> </script>
+
 </head>
 
 <body>
@@ -45,7 +50,8 @@
 					<div class="clear"></div>
 				</div>
 				
-				<div id="user2">
+				
+				<%-- <div id="user2">
 					<div id="joinForm2">
 						<form action="joinIdCheck" method="get">
 	
@@ -67,7 +73,8 @@
 							
 						</form>
 					</div>
-				</div>
+				</div> --%>
+				
 										
 				<!-- //content-head -->
 	
@@ -117,7 +124,8 @@
 							
 							<!-- 버튼영역 -->
 							<div class="button-area">
-								<button type="submit" id="btn-submit">회원가입</button>
+								<button type="button" id="btn-submit">회원가입</button>
+								<!-- <button type="submit" id="btn-submit">회원가입</button> -->
 							</div>
 							
 						</form>
@@ -142,6 +150,26 @@
 
 <script type="text/javascript">
 
+$("#btn-submit").on("click", function() {
+	console.log("회원가입 버튼 클릭 ");
+	
+	var id = $("#input-uid").val();
+	var pw = $("#input-pass").val();
+	
+	if (id == "" ) {
+		alert("아이디를 입력해주세요.");
+		$().submit(); 
+		// return false; // 하던일 멈춰 stop 
+	} 
+	if (pw == "" ) {
+		alert("비밀번호를 입력해주세요.");
+		$().submit(); 
+		// return false; // 하던일 멈춰 stop
+	}
+	
+}); // btn-submit click function
+
 </script>
+
 
 </html>

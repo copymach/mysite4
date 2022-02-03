@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GuestbookService;
@@ -64,6 +66,27 @@ public class ApiGuestbookController {
 		System.out.println("api컨트롤러 result 출력 "+result);
 		return result;
 	} 
+	
+	@ResponseBody // 리스폰스 바디 응답할때 위치 
+	@RequestMapping("/write2") 
+	public GuestbookVo write2(@RequestBody GuestbookVo guestbookVo) { 
+			// RequestBody 받을때 위치, 어트리뷰트가 아닌 RequestBody쓰면 그곳에서 vo를 찾아 게터세터맞춰줌
+			// ,@RequestParam("name") String name) {
+		System.out.println("apiGuestbookController.write2 실행");
+		
+//		System.out.println("apiGuestbookController.name 실행 "+name);
+//		name 출력이 안된다 json방식으로 파라미터에 값이 없기 때문
+		
+		System.out.println("apiGuestbookController.guestbookVo 실행 "+guestbookVo);
+		
+//		저장하고 저장한 값 리턴
+		GuestbookVo gVo = guestbookService.addGuestbookResultVo(guestbookVo);
+		System.out.println("컨트롤러 gVo 출력 "+gVo);
+		return gVo;
+	}
+	
+	
+	
 	
 	
 } // The end of ApiGuestbookController
