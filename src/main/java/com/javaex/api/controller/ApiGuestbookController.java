@@ -50,4 +50,20 @@ public class ApiGuestbookController {
 		return gVo;
 	} // write
 	
+	
+	@ResponseBody // json으로 담아라
+	@RequestMapping("/remove")
+	public String remove(@ModelAttribute GuestbookVo guestbookVo) {
+		System.out.println("apiGuestbookController.remove 실행");
+		
+		System.out.println("apiGuestbookController.guestbookVo "+guestbookVo);
+		
+		String result = guestbookService.remove(guestbookVo);
+		// result 에서 success fail
+		
+		System.out.println("api컨트롤러 result 출력 "+result);
+		return result;
+	} 
+	
+	
 } // The end of ApiGuestbookController

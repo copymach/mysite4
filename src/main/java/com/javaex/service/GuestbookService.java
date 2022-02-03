@@ -42,5 +42,18 @@ public class GuestbookService {
 		return gVo;
 	}
 	
+//	ajax용 방명록 글 삭제
+	public String remove(GuestbookVo guestbookVo) {
+		System.out.println("서비스 remove 출력");	
+		
+		int count= guestbookDao.contentDelete(guestbookVo);
+		
+		if (count > 0 ) {
+			return "success";
+		} else {
+			return "fail";
+		}
+		
+	}
 	
 } // The end of  GuestbookService 
