@@ -2,6 +2,7 @@ package com.javaex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,8 +29,10 @@ public class FileController {
 //		return "/fileupload/result";
 //	} 
 	
+	
+//	파일 업로드 처리
 	@RequestMapping("/upload")
-	public String upload(@RequestParam("file") MultipartFile file) {
+	public String upload(@RequestParam("file") MultipartFile file, Model model) {
 		System.out.println("FileController.upload ");
 		
 //		System.out.println("FileController.file "+file);
@@ -39,6 +42,8 @@ public class FileController {
 //		System.out.println("FileController.file 사이즈 "+file.getSize());
 		System.out.println("FileController.file 원본파일이름 "+file.getOriginalFilename());
 		
+		String saveName = fileService.restore(file);
+		model.addAttribute("saveName", saveName);
 		
 		return "/fileupload/result";
 	} 

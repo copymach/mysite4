@@ -27,15 +27,8 @@
 
 		<!-- //nav -->
 
-		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>방명록</h2>
-				<ul>
-					<li><a href="${pageContext.request.contextPath}/guestbook/addList">일반방명록</a></li>
-					<li><a href="${pageContext.request.contextPath}/api/guestbook/addList">ajax방명록</a></li>
-				</ul>
-			</div>
-			<!-- //aside -->
+		<c:import url="/WEB-INF/views/include/asideGuestbook.jsp"></c:import>
+		<!-- //aside -->
 
 			<div id="content">
 

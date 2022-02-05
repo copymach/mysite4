@@ -4,11 +4,12 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import com.javaex.dao.RboardDao;
 import com.javaex.vo.RboardVo;
 
-@Repository
+@Service
 public class RboardService {
 
 	@Autowired
