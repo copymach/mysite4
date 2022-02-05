@@ -269,7 +269,7 @@ $("#btnSubmit2").on("click", function() {
 
 	}); // document . ready
 	
-}); // btnSubmit2 click function
+}); // 저장버튼 클릭할때 - json 방식 요청 btnSubmit2 click function
 
 
 

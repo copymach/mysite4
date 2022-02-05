@@ -25,7 +25,7 @@ public class GalleryController {
 		List<GalleryVo> galleryList = galleryService.getGalleryList();
 		
 		model.addAttribute("galleryList", galleryList);
-		
+		System.out.println("GC.galleryList 출력 "+galleryList);
 		return "/gallery/list";
 	}
 	

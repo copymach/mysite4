@@ -199,6 +199,9 @@ $("viewArea").on("click", function() {
 
 
 
+
+
+
 function fetchList() {
 
 $.ajax({
@@ -206,19 +209,15 @@ $.ajax({
 	url : "${pageContext.request.contextPath}/gallery/list",
 	type : "post",
 	
-	// 요청항목 받기 valid denied
-	dataType : "json"
-		
-		//console.log("galleryList 출력 "+galleryList);
-		
+	// 요청항목 받기 -리스트 valid denied 조건없이 출력 
+	dataType : "json",
+	// console.log("galleryList 출력 "+galleryList);
+	
+	function(galleryList) {
 		for (var i=0; i<galleryList.length; i++) {
 			render(galleryList[i], "downside");
 		}
-		
-	error : function(XHR, status, error) {
-		console.error(status + " : " + error);
 	}
-	
 }); // $.ajax
 	
 }; // function fetchList
