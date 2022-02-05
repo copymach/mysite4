@@ -136,7 +136,9 @@
 			</div>
 			<div class="modal-body">
 
-				비밀번호: <input id="modalPassword" type="password" name="password" value=""> <br> <input id="modalNo" type="text" name="no" value="no">
+				비밀번호: <input id="modalPassword" type="password" name="password" value=""> 
+				<br> 
+				<input id="modalNo" type="text" name="no" value="no">
 
 			</div>
 			<div class="modal-footer">
@@ -377,7 +379,7 @@ function render(guestbookVo, updown) { // 1명씩 정보를 받아 처리 button
 	str += ' 		<td>No: ' + guestbookVo.no + '</td> ';
 	str += ' 		<td>Name: ' + guestbookVo.name + '</td> ';
 	str += ' 		<td>time: ' + guestbookVo.regDate + '</td> ';
-	str += ' 		<td> <button class="btnDelPop" type="button" data-no="'+guestbookVo.no+'" >삭제</button> </td> ';
+	str += ' 		<td> <button class= "btnDelPop" type="button" data-no="'+guestbookVo.no+'" >삭제</button> </td> ';
 	str += '	 </tr> ';
 	str += ' 	 <tr> ';
 	str += ' 	<td colspan=4 class="text-left">' + guestbookVo.content

@@ -53,16 +53,17 @@
 
 			
 					<ul id="viewArea">
-						
+					
+						<%-- <c:forEach items="${galleryList}" var="galleryList">
 						<!-- 이미지반복영역 -->
 							<li>
 								<div class="view" >
-									<img class="imgItem" src="">
-									<div class="imgWriter">작성자: <strong>유재석</strong></div>
+									<img class="imgItem" src="${galleryList.filePath}${galleryList.saveName}">
+									<div class="imgWriter">작성자id: <strong>${galleryList.id}</strong></div>
 								</div>
 							</li>
 						<!-- 이미지반복영역 -->
-						
+						</c:forEach> --%>
 						
 					</ul>
 				</div>
@@ -152,7 +153,7 @@
 //로딩 전에 요청하기 document . ready
 $(document).ready(function() {
 	console.log("리스트 요청");
-	//fetchList();
+	fetchList();
 }); // 로딩 전에 요청하기 document . ready
 
 //이미지올리기 버튼 클릭할때 팝업 호출
@@ -174,7 +175,7 @@ $("#btnUpload").on("click", function(){
 }); // 이미지올리기 속 등록 버튼 클릭할때
 
 
-//이미지 클릭할때 이미지보기 팝업 호출
+// 이미지 클릭할때 이미지보기 팝업 호출
 $("#viewModal").on("click", function(){
 	console.log("이미지 누름");
 	var $this = $(this);
@@ -184,6 +185,65 @@ $("#viewModal").on("click", function(){
 	
 }); // 이미지올리기 버튼 클릭 팝업 호출
 
+
+// 이미지 리스트 출력 viewArea
+$("viewArea").on("click", function() {
+	var $this = $(this);
+	var bno = $this.data("bno");
+	
+	console.log("bno 출력 "+bno);
+	
+	$('#viewModal').modal('show');
+	
+}); // 이미지 리스트 출력 viewArea
+
+
+
+function fetchList() {
+
+$.ajax({
+	// 요청항목 보내기
+	url : "${pageContext.request.contextPath}/gallery/list",
+	type : "post",
+	
+	// 요청항목 받기 valid denied
+	dataType : "json"
+		
+		//console.log("galleryList 출력 "+galleryList);
+		
+		for (var i=0; i<galleryList.length; i++) {
+			render(galleryList[i], "downside");
+		}
+		
+	error : function(XHR, status, error) {
+		console.error(status + " : " + error);
+	}
+	
+}); // $.ajax
+	
+}; // function fetchList
+
+
+function render(galleryVo, updown) {
+	console.log("테이블 출력");
+	var str = '';
+	str += ' <li id="pic'+galleryVo.bno+'"> ';
+	str += ' 	<div class="view" > ';
+	str += ' 			<img class="imgItem" src="'+galleryVo.filePath+galleryVo.saveName+'"> ';
+	str += ' 			<div class="imgWriter">작성자id: <strong>'+galleryVo.id+'</strong></div> ';
+	str += ' 	</div> ';
+	str += ' </li> ';
+	str += ' ';
+	
+	if (updown == 'downside') {
+		$("#viewArea").append(str); // .html 을 쓰면 바꿔치는 기능때문에 마지막글 만 출력 
+	} else if (updown == 'upside') {
+		$("#viewArea").prepend(str);
+	} else {
+		console.log("방향오류");
+	};
+	
+};
 
 
 </script>
