@@ -54,7 +54,7 @@
 			
 					<ul id="viewArea">
 					
-						<%-- <c:forEach items="${galleryList}" var="galleryList">
+						<c:forEach items="${galleryList}" var="galleryList">
 						<!-- 이미지반복영역 -->
 							<li>
 								<div class="view" >
@@ -63,7 +63,7 @@
 								</div>
 							</li>
 						<!-- 이미지반복영역 -->
-						</c:forEach> --%>
+						</c:forEach>
 						
 					</ul>
 				</div>
@@ -133,7 +133,7 @@
 					</div>
 					
 				</div>
-				<form method="" action="">
+				<form method="post" action="">
 					<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="button" class="btn btn-danger" id="btnDel">삭제</button>

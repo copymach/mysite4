@@ -355,7 +355,6 @@ $.ajax({
 		for (var i = 0; i < guestbookList.length; i++) {
 			render(guestbookList[i], "down"); // 방명록 리스트 출력
 		}
-
 	},
 	error : function(XHR, status, error) {
 		console.error(status + " : " + error);

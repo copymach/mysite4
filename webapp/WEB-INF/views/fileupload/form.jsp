@@ -48,7 +48,8 @@
 							</colgroup>
 							<tr>
 								<td class="text-left"><input type="file" name="file"></td>
-								<td class="text-right"><button type="submit">파일업로드</button></td>
+								<td class="text-right"><button type="submit">파일업로드</button>
+								</td>
 							</tr>
 						</table>
 					</form>
