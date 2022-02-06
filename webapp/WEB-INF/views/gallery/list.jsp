@@ -80,7 +80,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">이미지등록</h4>
 				</div>
-				<form method="post" action="${pageContext.request.contextPath}/gallery/upload" enctype="multipart/form-data">
+				<form method="post" action="${pageContext.request.contextPath}/gallery/write" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-text">글작성</label>
@@ -117,10 +117,11 @@
 						<p id="viewModelContent"></p>
 					</div>
 				</div>
-				<form method="" action="">
+				<form action="${pageContext.request.contextPath}/gallery/write" method="post" enctype="multipart/form-data">
 					<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
+					<input type="text" name="uno" value="${sessionScope.authUser.no}">
 				</div>
 				</form>
 			</div><!-- /.modal-content -->
