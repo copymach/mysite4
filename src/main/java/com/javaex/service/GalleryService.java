@@ -20,6 +20,12 @@ public class GalleryService {
 		return galleryDao.getGalleryList();
 	}
 	
+	public GalleryVo readImage(int bno) {
+		System.out.println("GalleryService.readImage ");
+		GalleryVo galleryVo = galleryDao.readImage(bno);
+		 return galleryVo;
+	}
+	
 	public void insertImage(GalleryVo galleryVo) {
 		System.out.println("GalleryService.insertImage ");
 		galleryDao.insertImage(galleryVo);

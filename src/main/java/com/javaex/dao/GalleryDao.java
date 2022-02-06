@@ -20,6 +20,12 @@ public class GalleryDao {
 		return galleryList;
 	}
 	
+	public GalleryVo readImage(int bno) {
+		System.out.println("GalleryDao.readImage");
+		GalleryVo galleryVo = sqlSession.selectOne("gallery.readImage", bno);
+		return galleryVo;
+	}
+	
 	public void insertImage(GalleryVo galleryVo) {
 		System.out.println("GalleryDao.insertImage");
 		sqlSession.insert("gallery.insertImage");

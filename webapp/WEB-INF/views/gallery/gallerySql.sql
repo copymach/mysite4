@@ -45,7 +45,9 @@ INSERT INTO gallery VALUES (
 seq_gallery_no.nextval, '그림등록1', 'C:\javaStudy\upload\', '원본파일1.jpg', '저장파일1.jpg', '1000', sysdate, 3)
 ;
 
-
+INSERT INTO gallery VALUES (
+seq_gallery_no.nextval, '그림등록1', 'C:\javaStudy\upload\', 'pic2ori.jpg', 'pic2save.jpg', '1000', sysdate, 4)
+;
 
 -- 테이블에서 (id n번) 데이터를 삭제해 보세요
 TRUNCATE TABLE gallery WHERE no = 1;
@@ -86,4 +88,22 @@ DELETE FROM gallery
 WHERE	user_no = 3
 and		no = 2
 ;
+
+--1개 출력용
+select  gl.no bno
+        ,content
+        ,filePath
+        ,orgName
+        ,saveName
+        ,fileSize
+        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date
+        ,ur.no uno
+        ,ur.id id
+        ,ur.name name
+from gallery gl, users ur
+where ur.no = gl.user_no
+and gl.no = 2
+;
+
+select * from gallery;
 rollback;

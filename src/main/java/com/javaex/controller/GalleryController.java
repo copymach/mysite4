@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.javaex.service.GalleryService;
 import com.javaex.vo.GalleryVo;
@@ -27,6 +29,14 @@ public class GalleryController {
 		model.addAttribute("galleryList", galleryList);
 		System.out.println("GC.galleryList 출력 "+galleryList);
 		return "/gallery/list";
+	}
+	
+	@ResponseBody
+	@RequestMapping("/read")
+	public GalleryVo read(@RequestParam("bno") int bno) {
+		System.out.println("GalleryController.read ");
+		GalleryVo galleryVo = galleryService.readImage(bno);
+		return galleryVo;
 	}
 	
 	@RequestMapping("/write")

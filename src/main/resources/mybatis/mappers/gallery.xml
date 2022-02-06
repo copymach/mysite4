@@ -22,6 +22,24 @@
 	]]>
 </select>
 
+<select id="readImage" parameterType="GalleryVo">
+<![CDATA[
+	select  gl.no bno
+	        ,content
+	        ,filePath
+	        ,orgName
+	        ,saveName
+	        ,fileSize
+	        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date
+	        ,ur.no uno
+	        ,ur.id id
+	        ,ur.name name
+	from gallery gl, users ur
+	where ur.no = gl.user_no
+	and gl.no = #{bno}
+	]]>
+</select>
+
 <!-- 갤러리 (글no 코멘트 파일경로 원본파일명 저장파일명 파일사이즈 등록일 작성자no) -->
 <insert id="insertImage" parameterType="GalleryVo">
 	<![CDATA[

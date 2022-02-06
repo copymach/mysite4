@@ -29,7 +29,6 @@
 
 
 		<div id="content">
-
 			<div id="content-head">
 				<h3>갤러리</h3>
 				<div id="location">
@@ -42,18 +41,11 @@
 				<div class="clear"></div>
 			</div>
 			<!-- //content-head -->
-
-
 			<div id="gallery">
 				<div id="list">
-			
-					
 						<button id="btnImgUpload">이미지올리기</button>
 						<div class="clear"></div>
-
-			
 					<ul id="viewArea">
-					
 						<c:forEach items="${galleryList}" var="galleryList">
 						<!-- 이미지반복영역 -->
 							<li>
@@ -64,7 +56,6 @@
 							</li>
 						<!-- 이미지반복영역 -->
 						</c:forEach>
-						
 					</ul>
 				</div>
 				<!-- //list -->
@@ -73,7 +64,6 @@
 		</div>
 		<!-- //content  -->
 		<div class="clear"></div>
-
 		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 
@@ -90,8 +80,7 @@
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 					<h4 class="modal-title">이미지등록</h4>
 				</div>
-				
-				<form method="post" action="" >
+				<form method="post" action="${pageContext.request.contextPath}/gallery/upload" enctype="multipart/form-data">
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-text">글작성</label>
@@ -107,13 +96,10 @@
 						<button type="submit" class="btn" id="btnUpload">등록</button>
 					</div>
 				</form>
-				
-				
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 	
-
 
 	<!-- 이미지보기 팝업(모달)창 -->
 	<div class="modal fade" id="viewModal">
@@ -124,25 +110,19 @@
 					<h4 class="modal-title">이미지보기</h4>
 				</div>
 				<div class="modal-body">
-					
 					<div class="formgroup" >
 						<img id="viewModelImg" src =""> <!-- ajax로 처리 : 이미지출력 위치-->
 					</div>
-					
 					<div class="formgroup">
 						<p id="viewModelContent"></p>
 					</div>
-					
 				</div>
-				<form method="post" action="">
+				<form method="" action="">
 					<div class="modal-footer">
 					<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 					<button type="button" class="btn btn-danger" id="btnDel">삭제</button>
 				</div>
-				
-				
 				</form>
-				
 			</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->	
@@ -151,34 +131,63 @@
 </body>
 
 <script type="text/javascript">
-/* //로딩 전에 요청하기 document . ready
-$(document).ready(function() {
-	console.log("리스트 요청");
-	fetchList();
-}); // 로딩 전에 요청하기 document . ready
- */
 
- 
- //이미지올리기 버튼 클릭할때 팝업 호출
+	
+// 이미지올리기 버튼 클릭할때 팝업 호출
 $("#btnImgUpload").on("click", function(){
 	console.log("이미지올리기 버튼눌림");
-	var $this = $(this);
+	//var $this = $(this);
 	//var uno = $this.data("uno"); // 이미지 업로더 번호 
-	
 	$('#addModal').modal('show');
-	
-}); // 이미지올리기 버튼 클릭 팝업 호출
+}); // btnImgUpload 이미지올리기 버튼 클릭 팝업 호출
+
+
+// 이미지 클릭할때 이미지보기 팝업 호출
+$(".imgItem").on("click",function(){
+	var bno = $(this).data("bno")
+	var authUserNo = $("#btnImgUpload").data("userno");
+
+	$.ajax({
+		url : "${pageContext.request.contextPath}/gallery/read",
+		type : "post",
+		data : {bno : bno},
+		dataType : "json",
+		success : function(galleryVo) {
+			/*성공시 처리해야될 코드 작성*/
+			console.log("galleryVo 출력 "+galleryVo);
+			if (galleryVo.userNo == authUserNo) {
+				$("#delBtn").show();
+			}
+			else {
+				$("#delBtn").hide();
+			}
+			// viewModal 이미지 모달창
+			$("#viewModal").modal('show');
+			$("#viewModelImg").attr("src", url + galleryVo.saveName);
+			$("#viewModelContent").html(galleryVo.content);
+			$("[name='modalNo']").val(galleryVo.no);
+			console.log($("[name='modalNo']").val());
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+		
+	}); // ajax
+
+}); // imgItem
+
+
+
 
 
 // 이미지올리기 속 등록 버튼 클릭할때
 $("#btnUpload").on("click", function(){
 	console.log("등록 버튼눌림");
-
 	// 폼에 데이터를 모으자
 	var content = $("#addModalContent").val(); 
 	var file = $("#file").val();
 	var uno = $("#uno").val();
-	
 	// 모은 데이터를 객체로 만들자
 	var galleryVo = {
 		content : content,
@@ -186,39 +195,51 @@ $("#btnUpload").on("click", function(){
 		uno : uno
 	};	
 	
-	console.log("gallaryVo 출력 "+gallaryVo);
-
-	$(document).ready(function() { // 리스트 요청하기
-		console.log("리스트 요청");
-
-		$.ajax({
-
-			url : "${pageContext.request.contextPath}/gallery/write",
-			type : "post",
-			data : galleryVo, // 위에서 만든 객체를 그대로 이어 쓴다
-
-			success : function(result) {
-				/*성공시 처리해야될 코드 작성*/
-				console.log("gallaryVo 출력확인 " + gallaryVo);
-				render(result, "upside"); // result 대신 render(guestbookVo, "up"); 했더니 실시간 반영안됨
-
-				// 입력폼 비우기
-				$("#addModalContent").val(""); 
-				$("#file").val("");
-				$("#uno").val("");
-
-			},
-			error : function(XHR, status, error) {
-				console.error(status + " : " + error);
-			}
-		}); // ajax
-
-	}); // document . ready
+	if (galleryVo =! null) {
+		console.log("gallaryVo 출력 "+gallaryVo);
+		
+	};
 	
-}); // 이미지올리기 속 등록 버튼 클릭할때
+}); // btnUpload click function 이미지올리기 속 등록 버튼 클릭할때
 
 
+/* $(document).ready(function() { // 리스트 요청하기
+	console.log("리스트 요청");
 
+	$.ajax({
+
+		url : "${pageContext.request.contextPath}/gallery/write",
+		type : "post",
+		data : galleryVo, // 위에서 만든 객체를 그대로 이어 쓴다
+
+		success : function(result) {
+			//성공시 처리해야될 코드 작성
+			console.log("gallaryVo 출력확인 " + gallaryVo);
+			render(result, "upside"); // result 대신 render(guestbookVo, "up"); 했더니 실시간 반영안됨
+
+			// 입력폼 비우기
+			$("#addModalContent").val(""); 
+			$("#file").val("");
+			$("#uno").val("");
+		
+			
+			
+		},
+		error : function(XHR, status, error) {
+			console.error(status + " : " + error);
+		}
+	}); // ajax
+
+}); // document . ready
+ */
+
+ 
+ 
+ 
+ 
+ 
+ 
+ /*
 function fetchList() {
 $.ajax({
 	// 요청항목 보내기
@@ -261,15 +282,6 @@ function render(galleryVo, updown) {
 	};
 };
 
-
-
-/* // 이미지 클릭할때 이미지보기 팝업 호출
-$("#viewModal").on("click", function(){
-	console.log("이미지 누름");
-	var $this = $(this);
-	//var uno = $this.data("uno"); // 이미지 업로더 번호 
-	$('#viewModal').modal('show');
-}); // 이미지올리기 버튼 클릭 팝업 호출
 
 
 
