@@ -58,8 +58,8 @@
 						<!-- 이미지반복영역 -->
 							<li>
 								<div class="view" >
-									<img class="imgItem" src="${galleryList.filePath}${galleryList.saveName}">
-									<div class="imgWriter">작성자id: <strong>${galleryList.id}</strong></div>
+									<img class="imgItem" data-no="${galleryList.bno}" src="${pageContext.request.contextPath}/upload/${galleryList.saveName}">
+									<div class="imgWriter">작성자id: <strong>${galleryList.id}</strong> <%-- name:${galleryList.name} --%> </div>
 								</div>
 							</li>
 						<!-- 이미지반복영역 -->
@@ -91,7 +91,7 @@
 					<h4 class="modal-title">이미지등록</h4>
 				</div>
 				
-				<form method="" action="" >
+				<form method="post" action="" >
 					<div class="modal-body">
 						<div class="form-group">
 							<label class="form-text">글작성</label>
@@ -100,6 +100,7 @@
 						<div class="form-group">
 							<label class="form-text">이미지선택</label>
 							<input id="file" type="file" name="" value="" >
+							<input id="uno" name="uno" type="text" value="${sessionScope.authUser.no}">
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -150,13 +151,15 @@
 </body>
 
 <script type="text/javascript">
-//로딩 전에 요청하기 document . ready
+/* //로딩 전에 요청하기 document . ready
 $(document).ready(function() {
 	console.log("리스트 요청");
 	fetchList();
 }); // 로딩 전에 요청하기 document . ready
+ */
 
-//이미지올리기 버튼 클릭할때 팝업 호출
+ 
+ //이미지올리기 버튼 클릭할때 팝업 호출
 $("#btnImgUpload").on("click", function(){
 	console.log("이미지올리기 버튼눌림");
 	var $this = $(this);
@@ -170,40 +173,53 @@ $("#btnImgUpload").on("click", function(){
 // 이미지올리기 속 등록 버튼 클릭할때
 $("#btnUpload").on("click", function(){
 	console.log("등록 버튼눌림");
-	
 
+	// 폼에 데이터를 모으자
+	var content = $("#addModalContent").val(); 
+	var file = $("#file").val();
+	var uno = $("#uno").val();
+	
+	// 모은 데이터를 객체로 만들자
+	var galleryVo = {
+		content : content,
+		file : file,
+		uno : uno
+	};	
+	
+	console.log("gallaryVo 출력 "+gallaryVo);
+
+	$(document).ready(function() { // 리스트 요청하기
+		console.log("리스트 요청");
+
+		$.ajax({
+
+			url : "${pageContext.request.contextPath}/gallery/write",
+			type : "post",
+			data : galleryVo, // 위에서 만든 객체를 그대로 이어 쓴다
+
+			success : function(result) {
+				/*성공시 처리해야될 코드 작성*/
+				console.log("gallaryVo 출력확인 " + gallaryVo);
+				render(result, "upside"); // result 대신 render(guestbookVo, "up"); 했더니 실시간 반영안됨
+
+				// 입력폼 비우기
+				$("#addModalContent").val(""); 
+				$("#file").val("");
+				$("#uno").val("");
+
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		}); // ajax
+
+	}); // document . ready
+	
 }); // 이미지올리기 속 등록 버튼 클릭할때
-
-
-// 이미지 클릭할때 이미지보기 팝업 호출
-$("#viewModal").on("click", function(){
-	console.log("이미지 누름");
-	var $this = $(this);
-	//var uno = $this.data("uno"); // 이미지 업로더 번호 
-	
-	$('#viewModal').modal('show');
-	
-}); // 이미지올리기 버튼 클릭 팝업 호출
-
-
-// 이미지 리스트 출력 viewArea
-$("viewArea").on("click", function() {
-	var $this = $(this);
-	var bno = $this.data("bno");
-	
-	console.log("bno 출력 "+bno);
-	
-	$('#viewModal').modal('show');
-	
-}); // 이미지 리스트 출력 viewArea
-
-
-
 
 
 
 function fetchList() {
-
 $.ajax({
 	// 요청항목 보내기
 	url : "${pageContext.request.contextPath}/gallery/list",
@@ -213,13 +229,15 @@ $.ajax({
 	dataType : "json",
 	// console.log("galleryList 출력 "+galleryList);
 	
-	function(galleryList) {
+	success : function(galleryList) {
 		for (var i=0; i<galleryList.length; i++) {
 			render(galleryList[i], "downside");
 		}
+	},
+	error : function(XHR, status, error) {
+		console.error(status + " : " + error);
 	}
 }); // $.ajax
-	
 }; // function fetchList
 
 
@@ -241,8 +259,30 @@ function render(galleryVo, updown) {
 	} else {
 		console.log("방향오류");
 	};
-	
 };
+
+
+
+/* // 이미지 클릭할때 이미지보기 팝업 호출
+$("#viewModal").on("click", function(){
+	console.log("이미지 누름");
+	var $this = $(this);
+	//var uno = $this.data("uno"); // 이미지 업로더 번호 
+	$('#viewModal').modal('show');
+}); // 이미지올리기 버튼 클릭 팝업 호출
+
+
+
+// 이미지 리스트 출력 viewArea
+$("viewArea").on("click", function() {
+	var $this = $(this);
+	var bno = $this.data("bno");
+	console.log("bno 출력 "+bno);
+	$('#viewModal').modal('show');
+}); // 이미지 리스트 출력 viewArea
+
+ */
+
 
 
 </script>
