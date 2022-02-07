@@ -3,90 +3,135 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="board">
-
 <!-- 리절트 타입 파라미터 타입차이
 resultType : select 된 데이터를 반환할 (그릇)을 정해주는것 여기 코드같은경우엔 boardVo 객체에 담긴다
 parameterType : 자바에서 String 값이 들어올거란걸 인지시켜주고 , 쿼리에서 자바에서 보낸 파라미터값을 사용한다
  -->
  
-	<!-- 쿼리문 작성 <![CDATA[]]>  -->
-	<select id="selectList" resultType="com.javaex.vo.BoardVo">
-		<![CDATA[
-		select  bd.no bno
-		        ,title
-		        ,content
-		        ,hit
-		        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
-		        ,user_no uno
-		        ,ur.id id
-		        ,ur.password password
-		        ,ur.name user_name        
-		from board bd, users ur
-		where bd.user_no = ur.no
-		order by reg_date desc
-		]]>	
-	</select>
-	
-	<select id="selectOne" parameterType="BoardVo" resultType="BoardVo">
-		<![CDATA[
-		select  bd.no bno
-		        ,title
-		        ,content
-		        ,hit
-		        ,to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') reg_date 
-		        ,user_no uno
-		        ,ur.id id
-		        ,ur.password password
-		        ,ur.name user_name         
-		from board bd, users ur
-		where bd.user_no = ur.no
-		and bd.no = #{bno}
-		]]>
-	</select>
+<!-- 쿼리문 작성 <![CDATA[]]>  -->
+<select id="selectList" resultType="com.javaex.vo.BoardVo">
+<![CDATA[
+select  bd.no bno
+        ,title
+        ,content
+        ,hit
+        ,to_char(reg_date, 'yy-mm-dd hh24:mi') reg_date 
+        ,user_no uno
+        ,ur.id id
+        ,ur.password password
+        ,ur.name user_name        
+from board bd, users ur
+where bd.user_no = ur.no
+order by reg_date desc
+]]>	
+</select>
+
+<select id="selectOne" parameterType="BoardVo" resultType="BoardVo">
+<![CDATA[
+select  bd.no bno
+        ,title
+        ,content
+        ,hit
+        ,to_char(reg_date, 'yyyy-mm-dd hh:mi:ss') reg_date 
+        ,user_no uno
+        ,ur.id id
+        ,ur.password password
+        ,ur.name user_name         
+from board bd, users ur
+where bd.user_no = ur.no
+and bd.no = #{bno}
+]]>
+</select>
 	
 	
 <!-- hit 티베로 조회수 증가 
 필드가 varchar 타입인 경우 TO_NUMBER로 캐스팅 하고
 혹시 NOT NULL 허용일지도 모름으로 NVL로 NULL값을 0으로 치환 -->
-	<update id="updateHit" parameterType="BoardVo">
-		<![CDATA[
-		UPDATE board 
-		set HIT = NVL(HIT, 0) + 1
-		WHERE board.no = #{bno}
-		]]>	
-	</update>
+<update id="updateHit" parameterType="BoardVo">
+	<![CDATA[
+	UPDATE board 
+	set HIT = NVL(HIT, 0) + 1
+	WHERE board.no = #{bno}
+	]]>	
+</update>
 
+
+<update id="updateContent" parameterType="BoardVo">
+	<![CDATA[
+	UPDATE board 
+	set     title = #{title},
+	        content = #{content}
+	WHERE board.no = #{bno}
+	]]>
+</update>
+
+
+<!-- 게시판 정보 입력해보기 식별번호(no시퀀스), 제목, 내용, 조회수, 등록일, 작성자번호(user_no) -->
+<insert id="insertContent" parameterType="BoardVo">
+	<![CDATA[
+	INSERT INTO board VALUES (
+		seq_board_no.nextval
+		, #{title}
+		, #{content} 
+		, 0 
+		, sysdate
+		, #{uno}
+		)
+	]]>
+</insert>
+
+<delete id="deleteContent" parameterType="BoardVo">
+	<![CDATA[
+	DELETE FROM board
+	WHERE 	board.no = #{bno}
+	and 	board.user_no = #{uno}
+	]]>
+</delete>
+
+<!-- rownum 이용한 페이징, 로넘 2단 사용하면 10번 이후부터 페이징 불가->3단사용 -->
+<select id="selectList2" parameterType="BoardVo" resultType="BoardVo">
+<![CDATA[
+select  rt.rn
+        , rt.no bno
+        , rt.title
+        , rt.content
+        , rt.hit
+        , rt.reg_date
+        , rt.user_no uno
+        , rt.user_name
+from (select  rownum rn
+                , ot.no
+                , ot.title
+                , ot.content
+                , ot.hit
+                , ot.reg_date
+                , ot.user_no
+                , ot.user_name
+       from (select  b.no
+                        , b.title title
+                        , b.content content
+                        , b.hit hit
+                        , to_char(b.reg_date, 'YYYY-MM-DD HH:mi:ss') reg_date
+                        , b.user_no
+                        , u.name user_name
+                        from board b, users u
+                        where b.user_no = u.no
+                order by b.no desc
+                ) ot 
+         ) rt
+where rn >=#{startRnum}
+and rn <=#{endRnum}
+]]>
+</select>
 	
-	<update id="updateContent" parameterType="BoardVo">
-		<![CDATA[
-		UPDATE board 
-		set     title = #{title},
-		        content = #{content}
-		WHERE board.no = #{bno}
-		]]>
-	</update>
-	
-	
-	<!-- 게시판 정보 입력해보기 식별번호(no시퀀스), 제목, 내용, 조회수, 등록일, 작성자번호(user_no) -->
-	<insert id="insertContent" parameterType="BoardVo">
-		<![CDATA[
-		INSERT INTO board VALUES (
-			seq_board_no.nextval
-			, #{title}
-			, #{content} 
-			, 0 
-			, sysdate
-			, #{uno}
-			)
-		]]>
-	</insert>
-	
-	<delete id="deleteContent" parameterType="BoardVo">
-		<![CDATA[
-		DELETE FROM board
-		WHERE 	board.no = #{bno}
-		and 	board.user_no = #{uno}
-		]]>
-	</delete>
+<!-- 전체글 카운트, 글의 전체 갯수를 파악하는 쿼리, 숫자 하나라서 결과형은 int -->
+<select id="totalCnt" resultType="int">
+<![CDATA[
+select count(*)
+from board b, users u
+where b.user_no = u.no
+]]>
+</select>
+
 	
 </mapper>

@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,26 @@ public class BoardController {
 		
 		return "/board/list";
 	} // list
+
+//	리스트 출력 + 페이징
+	@RequestMapping(value="/board/list2", method= {RequestMethod.POST, RequestMethod.GET})
+	public String list2(Model model, 
+			@RequestParam(value="crtPage", required=false, defaultValue="1") int crtPage) { // crtPage 암것도 없을때 1페이지
+		System.out.println("mysite4.list2 실행 crtPage "+crtPage);
+		
+//		해당 페이지의 글 리스트 10개
+		Map<String, Object> pMap = boardService.getBoardList2(crtPage);
+		
+		System.out.println("BC.pMap 출력 "+pMap);
+		
+//		DS에서 리스트 데이터 공유하는 model
+//		model.addAttribute("boardList",boardList);
+		
+		model.addAttribute("pMap", pMap);
+		
+		return "/board/list";
+	} // list2
+	
 	
 	@RequestMapping(value="/board/read", method= {RequestMethod.GET, RequestMethod.POST})
 	public String read(@RequestParam("bno") int bno, Model model) {

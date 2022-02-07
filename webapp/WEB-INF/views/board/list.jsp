@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>list (casual)</title>
+<title>list casual board</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 
@@ -27,7 +27,7 @@
 			<div id="content">
 
 				<div id="content-head">
-					<h3>일반게시판</h3>
+					<h3>일반게시판 list2</h3>
 					<div id="location">
 						<ul>
 							<li>홈</li>
@@ -59,7 +59,7 @@
 								</tr>
 							</thead>
 
-							<c:forEach items="${requestScope.boardList}" var="boardList">
+							<c:forEach items="${requestScope.pMap.boardList}" var="boardList">
 							
 							<tbody>
 							
@@ -85,18 +85,31 @@
 			
 						<div id="paging">
 							<ul>
-								<li><a href="">◀</a></li>
-								<li><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">3</a></li>
-								<li><a href="">4</a></li>
-								<li class="active"><a href="">5</a></li>
-								<li><a href="">6</a></li>
-								<li><a href="">7</a></li>
-								<li><a href="">8</a></li>
-								<li><a href="">9</a></li>
-								<li><a href="">10</a></li>
-								<li><a href="">▶</a></li>
+								
+								<c:if test="${requestScope.pMap.prev eq true}">
+									<li><a href="${pageContext.request.contextPath}/board/list2?crtPage=${requestScope.pMap.startPageBtnNo-1}">◀</a></li>
+								</c:if>
+								
+								<!-- 현제 페이지 볼드처리 if문으로 해결가능 -->
+							<c:forEach begin="${requestScope.pMap.startPageBtnNo}" end="${requestScope.pMap.endPageBtnNo}" step="1" var="page">
+							
+								<c:choose>
+								<c:when test="${boardList.crtPage eq cPage}">								
+									<li class="active"><a href="${pageContext.request.contextPath}/board/list2?crtPage=${page}">${page}</a></li>
+								</c:when>
+								
+								<c:otherwise>
+									<li class=""><a href="${pageContext.request.contextPath}/board/list2?crtPage=${page}">${page}</a></li>								
+								</c:otherwise>
+								</c:choose>
+														
+							</c:forEach>
+								
+								
+								<c:if test="${requestScope.pMap.next eq true}">
+								<li><a href="${pageContext.request.contextPath}/board/list2?crtPage=${requestScope.pMap.endPageBtnNo+1}">▶</a></li>
+								</c:if>
+								
 							</ul>
 							
 							

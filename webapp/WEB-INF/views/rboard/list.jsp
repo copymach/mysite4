@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>rboard.list</title>
+<title>list reply board AKA rboard</title>
 <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/assets/css/board.css" rel="stylesheet" type="text/css">
 
@@ -16,25 +16,17 @@
 	<div id="wrap">
 
 		<!-- //header -->
-
 		<c:import url="/WEB-INF/views/include/header.jsp"></c:import>
-
 		<!-- //nav -->
 
-		<div id="container" class="clearfix">
-			<div id="aside">
-				<h2>게시판</h2>
-				<ul>
-					<li><a href="${pageContext.request.contextPath}/board/list">일반게시판</a></li>
-					<li><a href="${pageContext.request.contextPath}/rboard/list">댓글게시판</a></li>
-				</ul>
-			</div>
-			<!-- //aside -->
+		<!-- 게시판 aside -->
+		<c:import url="/WEB-INF/views/include/asideBoard.jsp"></c:import>
+		<!-- //게시판 aside -->
 
 			<div id="content">
 
 				<div id="content-head">
-					<h3>댓글 게시판 (계층형 rboard)</h3>
+					<h3>댓글게시판 (계층형 rboard)</h3>
 					<div id="location">
 						<ul>
 							<li>홈</li>
