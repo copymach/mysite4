@@ -33,7 +33,6 @@ public class BoardController {
 		return "/board/list";
 	} // list
 	
-	
 	@RequestMapping(value="/board/read", method= {RequestMethod.GET, RequestMethod.POST})
 	public String read(@RequestParam("bno") int bno, Model model) {
 		System.out.println("board.read 실행");
@@ -91,7 +90,6 @@ public class BoardController {
 		System.out.println("BC.boardVo 확인 "+boardVo);
 		return "redirect:/board/list";
 	} // writeForm
-	
 	
 	@RequestMapping(value="/board/delete", method= {RequestMethod.GET, RequestMethod.POST})
 	public String delete(@ModelAttribute BoardVo boardVo) {
