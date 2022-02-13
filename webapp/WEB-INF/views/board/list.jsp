@@ -90,21 +90,14 @@
 									<li><a href="${pageContext.request.contextPath}/board/list2?crtPage=${requestScope.pMap.startPageBtnNo-1}">◀</a></li>
 								</c:if>
 								
-								<!-- 현제 페이지 볼드처리 if문으로 해결가능 -->
+								<!-- 현제 페이지 볼드처리 -->
 							<c:forEach begin="${requestScope.pMap.startPageBtnNo}" end="${requestScope.pMap.endPageBtnNo}" step="1" var="page">
 							
-								<c:choose>
-								<c:when test="${boardList.crtPage eq cPage}">								
-									<li class="active"><a href="${pageContext.request.contextPath}/board/list2?crtPage=${page}">${page}</a></li>
-								</c:when>
-								
-								<c:otherwise>
-									<li class=""><a href="${pageContext.request.contextPath}/board/list2?crtPage=${page}">${page}</a></li>								
-								</c:otherwise>
-								</c:choose>
+									<li class= ${pMap.crtPageNo eq page ? "active" : ""}>
+										<a href="${pageContext.request.contextPath}/board/list?crtPage=${page}">${page}</a>
+									</li>
 														
 							</c:forEach>
-								
 								
 								<c:if test="${requestScope.pMap.next eq true}">
 								<li><a href="${pageContext.request.contextPath}/board/list2?crtPage=${requestScope.pMap.endPageBtnNo+1}">▶</a></li>
