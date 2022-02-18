@@ -23,6 +23,7 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 	
+//	2022 02 18시험 제출
 //	로그인폼
 	@RequestMapping(value="/user/loginForm", method= {RequestMethod.POST, RequestMethod.GET})
 	public String loginForm() {
