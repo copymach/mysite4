@@ -39,4 +39,9 @@ public class UserDao {
 	}
 	
 	
+	// 2022 02 24 gith cafe24 답
+    public int insert(UserVo userVo) {
+        return sqlSession.insert("user.insert", userVo);
+    }
+    
 }
