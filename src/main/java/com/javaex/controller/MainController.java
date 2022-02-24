@@ -13,7 +13,7 @@ public class MainController {
 		System.out.println("MainController.main 메인 페이지");
 		
 		return "main/index";
-	} // main main
+	} // main main main 
 	
 	
 } // The End of MainController 
