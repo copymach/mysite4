@@ -21,7 +21,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-//	리스트 출력
+//	리스트 출력 list
 	@RequestMapping(value="/board/list", method= {RequestMethod.POST, RequestMethod.GET})
 	public String list(Model model) {
 		System.out.println("mysite4.list 실행");
